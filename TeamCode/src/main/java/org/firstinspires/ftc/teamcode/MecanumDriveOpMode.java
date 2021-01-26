@@ -1,16 +1,16 @@
-package org.firstinspires.ftc.teamcode;
+        package org.firstinspires.ftc.teamcode;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
+        import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+        import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+        import com.qualcomm.robotcore.util.ElapsedTime;
+        import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name = "Drive Via Gamepad", group = "ftc16671")
 public class MecanumDriveOpMode extends OpMode {
     private MecanumDrive mecanumDrive = new MecanumDrive();
     private double[] distances;
-    double pusherPosition, lifterPosition, grabberPosition, armPosition;
+    double pusherPosition, pusherMinPosition, pusherMaxPosition,  lifterPosition, grabberPosition, armPosition;
     double  MIN_POSITION = 0, MAX_POSITION = 1;
     double SERVO_OFFSET = 0.005;
     // Code to run ONCE when the driver hits INIT
@@ -54,14 +54,14 @@ public class MecanumDriveOpMode extends OpMode {
         }
 
         if (gamepad1.right_trigger > 0){
-            lifterPosition = 1;
+            lifterPosition = .599;
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             mecanumDrive.runIntake(-1.0);//take it in
             mecanumDrive.runConveyor(-1.0);//take it in
         }
 
         if (gamepad1.left_trigger > 0){
-            lifterPosition = 1;
+            lifterPosition = .599;
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             mecanumDrive.runIntake(1.0);//take it out
             mecanumDrive.runConveyor(1.0);//take it out
@@ -136,10 +136,32 @@ public class MecanumDriveOpMode extends OpMode {
 
         */
         //Setting gamepad2B***************************
+/*pusherMinPosition = 0.1;
+pusherMaxPosition = 0.6;
+        if (gamepad2.b) {
+            if (pusherPosition > pusherMinPosition) {
+                pusherPosition = pusherMinPosition;
 
+             }
+            mecanumDrive.pusher.setPosition(Range.clip(pusherPosition, pusherMinPosition, pusherMaxPosition));
+            //wait
+            MecanumDrive.sleep(500);
+            //
+            if(mecanumDrive.pusher.getPosition() == pusherMinPosition ){
+                pusherPosition =  pusherMaxPosition;
+            }
+
+            mecanumDrive.pusher.setPosition(Range.clip(pusherPosition, pusherMinPosition, pusherMaxPosition));
+            telemetry.addData("pusher servo", "position=" + pusherPosition + "  actual="
+                    + mecanumDrive.pusher.getPosition());
+        }
+        */
+        pusherPosition =0.64;
+        mecanumDrive.pusher.setPosition(Range.clip(pusherPosition, MIN_POSITION, MAX_POSITION));
         if (gamepad2.b) {
             if (pusherPosition > MIN_POSITION) {
                 pusherPosition = MIN_POSITION;
+
             }
             mecanumDrive.pusher.setPosition(Range.clip(pusherPosition, MIN_POSITION, MAX_POSITION));
             //wait
@@ -153,7 +175,6 @@ public class MecanumDriveOpMode extends OpMode {
             telemetry.addData("pusher servo", "position=" + pusherPosition + "  actual="
                     + mecanumDrive.pusher.getPosition());
         }
-
 
 
 
@@ -182,14 +203,14 @@ public class MecanumDriveOpMode extends OpMode {
         }
 */
         if(gamepad2.a){
-            lifterPosition = 0.500;
+            lifterPosition = 0.515;
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             telemetry.addData("lifter servo", "position=" + lifterPosition + "  actual="
                     + mecanumDrive.lifter.getPosition());
 
         }
         if(gamepad2.x){
-            lifterPosition = 1.0;
+            lifterPosition = .599;
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             telemetry.addData("lifter servo", "position=" + lifterPosition + "  actual="
                     + mecanumDrive.lifter.getPosition());
