@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.phase1;
 
 
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -98,8 +98,6 @@ class MecanumDrive {
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        shooterFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        shooterBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     void setSpeeds(double flSpeed, double frSpeed, double blSpeed, double brSpeed) {

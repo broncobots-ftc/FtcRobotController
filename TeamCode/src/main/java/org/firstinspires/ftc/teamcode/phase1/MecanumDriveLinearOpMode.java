@@ -1,11 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.phase1;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name = "MechanumDrive Linear OpMode", group = "ftc16671")
-
+@Disabled
 public class MecanumDriveLinearOpMode extends LinearOpMode {
     private MecanumDrive mecanumDrive = new MecanumDrive();
     private double[] distances;

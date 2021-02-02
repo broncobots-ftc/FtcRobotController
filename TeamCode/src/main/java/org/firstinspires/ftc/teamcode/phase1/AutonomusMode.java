@@ -27,15 +27,16 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.phase1;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
@@ -53,7 +54,7 @@ import java.util.List;
  * is explained below.
  */
 @Autonomous(name = "Autonomus Mode", group = "ftc16671")
-
+@Disabled
 public class AutonomusMode extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
@@ -73,7 +74,7 @@ public class AutonomusMode extends LinearOpMode {
     static final int fourRingsMinHeight = 240;
     static final int fourRingsMaxHeight = 340;
 
-    static final int SECONDS_TO_RUN_RING_DETECTION_FOR = 10;
+    static final int SECONDS_TO_RUN_RING_DETECTION_FOR = 20;
 
     private MecanumDrive mecanumDrive = new MecanumDrive();
     private ElapsedTime runtime = new ElapsedTime();
@@ -110,9 +111,9 @@ public class AutonomusMode extends LinearOpMode {
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
         //This is for mobile phone
-        parameters.cameraDirection = CameraDirection.BACK;
+        //parameters.cameraDirection = CameraDirection.BACK;
         //This is for external camera - MAKE SURE DEVICE NAME IS CORRECT
-        //parameters.cameraName = hardwareMap.get(WebcamName.class, "webcam 1");
+        parameters.cameraName = hardwareMap.get(WebcamName.class, "webcam 1");
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
     }
 

@@ -27,8 +27,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.phase1;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.RobotLog;
@@ -80,7 +81,7 @@ import java.util.List;
  */
 
 @TeleOp(name="Concept: Vuforia Navigation", group ="Concept")
-//@Disabled
+@Disabled
 public class VuforiaImageNavigation extends LinearOpMode {
 
     public static final String TAG = "Vuforia Navigation Sample";

@@ -1,11 +1,13 @@
-package org.firstinspires.ftc.teamcode;
+        package org.firstinspires.ftc.teamcode.phase1;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.Range;
+        import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+        import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+        import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+        import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name = "Drive Via Gamepad", group = "ftc16671")
+@Disabled
 public class MecanumDriveOpMode extends OpMode {
     private MecanumDrive mecanumDrive = new MecanumDrive();
     private double[] distances;
@@ -75,21 +77,13 @@ public class MecanumDriveOpMode extends OpMode {
         // if gamepad 2 right trigger or left trigger are pushed even slightly,
         // both shooters will run full speed
         if(gamepad2.right_trigger > 0 || gamepad2.left_trigger > 0){
-            mecanumDrive.shooterFront.setTargetPosition(4000000);
-            mecanumDrive.shooterBack.setTargetPosition(4000000);
-            mecanumDrive.shooterFront.setPower(.8);
-            mecanumDrive.shooterBack.setPower(.8);
-            telemetry.addData("shooter front", "position=" +  mecanumDrive.shooterFront.getCurrentPosition());
-            telemetry.addData("shooter back", "position=" +  mecanumDrive.shooterBack.getCurrentPosition());
-           /* mecanumDrive.runShooterFront(1);
-            mecanumDrive.runShooterBack(1); */
+            mecanumDrive.runShooterFront(.95);
+            mecanumDrive.runShooterBack(.95);
         }
 
         if(gamepad2.right_trigger == 0 && gamepad2.left_trigger == 0) {
-            mecanumDrive.shooterFront.setPower(0);
-            mecanumDrive.shooterBack.setPower(0);
-            /*mecanumDrive.runShooterFront(0.0);
-            mecanumDrive.runShooterBack(0.0);*/
+            mecanumDrive.runShooterFront(0.0);
+            mecanumDrive.runShooterBack(0.0);
         }
 
         //use gamepad2 left bumper to grab the wobber and move the arm up as well
