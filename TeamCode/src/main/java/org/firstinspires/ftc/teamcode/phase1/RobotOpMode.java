@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name = "Robot Op Mode", group = "ftc16671")
+@TeleOp(name = "Robot Op Mode old", group = "ftc16671")
 @Disabled
 public class RobotOpMode extends OpMode {
 

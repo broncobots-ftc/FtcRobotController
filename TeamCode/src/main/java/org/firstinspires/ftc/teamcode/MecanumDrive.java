@@ -171,7 +171,7 @@ class MecanumDrive {
                 (frontLeft.isBusy() || frontRight.isBusy())) {
             //wait or print something in telemetry
         }
-        setSpeeds(0.0, 0.0,0.0, 0.0);
+        //setSpeeds(1.0, 1.0,1.0, 1.0);
         setAllMotorsToRunUsingEncoder();
 
     }
@@ -185,7 +185,7 @@ class MecanumDrive {
                 (frontLeft.isBusy() || frontRight.isBusy())) {
             //wait or print something in telemetry
         }
-        setSpeeds(0.0, 0.0,0.0, 0.0);
+        //setSpeeds(1.0, 1.0,1.0, 1.0);
         setAllMotorsToRunUsingEncoder();
     }
 
@@ -198,7 +198,7 @@ class MecanumDrive {
                 (frontLeft.isBusy() || frontRight.isBusy())) {
             //wait or print something in telemetry
         }
-        setSpeeds(0.0, 0.0,0.0, 0.0);
+        //setSpeeds(1.0, 1.0,1.0, 1.0);
         setAllMotorsToRunUsingEncoder();
 
     }
@@ -207,12 +207,12 @@ class MecanumDrive {
         setAllWheelsToTargetPosition(distanceInInches);
         setAllMotorsToRunToPosition();
         runtime.reset();
-        driveMecanum(0.0,-1.0,0.0);
+        driveMecanum(0.0,0.0,1.0);
         while (runtime.seconds() < timeoutS &&
                 (frontLeft.isBusy() || frontRight.isBusy())) {
             //wait or print something in telemetry
         }
-        setSpeeds(0.0, 0.0,0.0, 0.0);
+        //setSpeeds(1.0, 1.0,1.0, 1.0);
         setAllMotorsToRunUsingEncoder();
 
     }
@@ -226,7 +226,7 @@ class MecanumDrive {
                 (frontLeft.isBusy() || frontRight.isBusy())) {
             //wait or print something in telemetry
         }
-        setSpeeds(0.0, 0.0,0.0, 0.0);
+        //setSpeeds(1.0, 1.0,1.0, 1.0);
         setAllMotorsToRunUsingEncoder();
 
     }
@@ -240,7 +240,7 @@ class MecanumDrive {
                 (frontLeft.isBusy() || frontRight.isBusy())) {
             //wait or print something in telemetry
         }
-        setSpeeds(0.0, 0.0,0.0, 0.0);
+        //setSpeeds(1.0, 1.0,1.0, 1.0);
         setAllMotorsToRunUsingEncoder();
 
     }
@@ -273,17 +273,17 @@ class MecanumDrive {
     public void moveBasedOnTotalRings(int totalRings) {
         if(totalRings == 0){
             //Strafe right
-            strafeRight(12, true, 5);
+            strafeRight(20, true, 5);
             //Move forward to A
-            moveForward(12, true, 5);
+            moveForward(20, true, 5);
 
         }else if(totalRings == 1){
             //Strafe right
-            strafeRight(10, true, 5);
+            strafeRight(4);
             //Move forward to A
-            moveForward(18, true, 5);
+            moveForward(10);
             //Strafe left to B
-            strafeLeft(10, true, 5);
+            strafeLeft(4);
 
         }else if(totalRings == 4){
             //Strafe right

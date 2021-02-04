@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name = "MechanumDrive Linear OpMode", group = "ftc16671")
+@TeleOp(name = "MechanumDrive Linear OpMode old", group = "ftc16671")
 @Disabled
 public class MecanumDriveLinearOpMode extends LinearOpMode {
     private MecanumDrive mecanumDrive = new MecanumDrive();

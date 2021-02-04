@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@Autonomous(name = "GrabberTest", group = "ftc16671")
+@Autonomous(name = "GrabberTest old", group = "ftc16671")
 @Disabled
 public class GrabberTestOpMode extends LinearOpMode {
     Servo grabber;

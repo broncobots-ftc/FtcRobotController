@@ -36,7 +36,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
@@ -53,9 +52,9 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@Autonomous(name = "Autonomus Mode", group = "ftc16671")
+@Autonomous(name = "Autonomus Mode Copy", group = "ftc16671")
 
-public class AutonomusMode extends LinearOpMode {
+public class AutonomusModeCopy extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
@@ -182,33 +181,8 @@ public class AutonomusMode extends LinearOpMode {
         long end = System.currentTimeMillis();
         int totalRings = 0;
         if (opModeIsActive()) {
-
             while (opModeIsActive()) {
-                if (tfod != null) {
-                    // getUpdatedRecognitions() will return null if no new information is available since
-                    // the last time that call was made.
-
-                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                    end = System.currentTimeMillis();
-                    float seconds = (end - start) / 1000F;
-                    if (updatedRecognitions != null && seconds <= SECONDS_TO_RUN_RING_DETECTION_FOR) {
-
-                          telemetry.addData("# Object Detected", updatedRecognitions.size());
-                          telemetry.addData("# seconds passed : ", seconds);
-                          // step through the list of recognitions and display boundary info.
-                          int i = 0;
-                          for (Recognition recognition : updatedRecognitions) {
-                            telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                            telemetry.addData(String.format("Total rings height (%d)", i),"%.03f", recognition.getHeight());
-                            float totalHeight=recognition.getHeight();
-                            totalRings = detectRings(totalHeight);
-                          }
-                          telemetry.update();
-
-
-                    }else{
-                        tfod.shutdown();
-                    }
+                    //object detection
 
                     /**
                      * detect rings
@@ -219,13 +193,16 @@ public class AutonomusMode extends LinearOpMode {
                      * move back and strafe to parking line
 
                     **/
-                    mecanumDrive.moveBasedOnTotalRings(totalRings);
+                    telemetry.addLine("moving now.... ");
+                    mecanumDrive.moveBasedOnTotalRings(1);
+                    telemetry.addLine("moving now....1111 ");
                     //mecanumDrive.moveGrabberArmToRelease();
                     sleep(3000);
                     mecanumDrive.releaseWobble();
-                    sleep(2000);
-                    break;
-                }
+                    //sleep(2000);
+                   telemetry.update();
+                   break;
+
             }
         }
 

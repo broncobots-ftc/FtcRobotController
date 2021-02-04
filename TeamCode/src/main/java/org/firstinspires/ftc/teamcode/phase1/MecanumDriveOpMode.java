@@ -6,7 +6,7 @@
         import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
         import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "Drive Via Gamepad", group = "ftc16671")
+@TeleOp(name = "Drive Via Gamepad old", group = "ftc16671")
 @Disabled
 public class MecanumDriveOpMode extends OpMode {
     private MecanumDrive mecanumDrive = new MecanumDrive();

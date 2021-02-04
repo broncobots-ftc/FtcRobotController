@@ -80,7 +80,7 @@ import java.util.List;
  * is explained below.
  */
 
-@TeleOp(name="Concept: Vuforia Navigation", group ="Concept")
+@TeleOp(name="Concept: Vuforia Navigation old", group ="Concept")
 @Disabled
 public class VuforiaImageNavigation extends LinearOpMode {
 
