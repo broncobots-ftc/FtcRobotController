@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
@@ -74,7 +75,7 @@ public class AutonomusMode extends LinearOpMode {
     static final int fourRingsMinHeight = 240;
     static final int fourRingsMaxHeight = 340;
 
-    static final int SECONDS_TO_RUN_RING_DETECTION_FOR = 10;
+    static final int SECONDS_TO_RUN_RING_DETECTION_FOR = 5;
 
     private MecanumDrive mecanumDrive = new MecanumDrive();
     private ElapsedTime runtime = new ElapsedTime();
@@ -195,31 +196,39 @@ public class AutonomusMode extends LinearOpMode {
 
                           telemetry.addData("# Object Detected", updatedRecognitions.size());
                           telemetry.addData("# seconds passed : ", seconds);
+                          telemetry.update();
                           // step through the list of recognitions and display boundary info.
                           int i = 0;
                           for (Recognition recognition : updatedRecognitions) {
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
                             telemetry.addData(String.format("Total rings height (%d)", i),"%.03f", recognition.getHeight());
+                            telemetry.update();
                             float totalHeight=recognition.getHeight();
                             totalRings = detectRings(totalHeight);
                           }
                           telemetry.update();
-
 
                     }else{
                         tfod.shutdown();
                     }
 
                     /**
-                     * detect rings
-                     * first shoot three
-                     * strafe
-                     * move to zone according to detection
+                     * detect rings and store that in variable
+                     * move 8 inches forward
+                     * start shooter motors
+                     * lift shooter up
+                     * push ring 1
+                     * push ring 2
+                     * push ring 3
+                     * stop shooter motors
+                     * put shooter down
+                     * move according to ring detection
                      * release wobble
-                     * move back and strafe to parking line
+                     * move back to parking line
 
                     **/
-                    mecanumDrive.moveBasedOnTotalRings(totalRings);
+
+                    mecanumDrive.moveBasedOnTotalRings(totalRings, telemetry);
                     //mecanumDrive.moveGrabberArmToRelease();
                     sleep(3000);
                     mecanumDrive.releaseWobble();

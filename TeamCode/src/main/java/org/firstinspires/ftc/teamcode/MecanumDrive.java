@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.matrices.GeneralMatrixF;
 import org.firstinspires.ftc.robotcore.external.matrices.MatrixF;
 
@@ -29,6 +30,13 @@ class MecanumDrive {
     public static double WHEEL_RADIUS = 5.0;  // 5 cm
     public static double TICKS_PER_ROTATION = 1120.0;  // From NeveRest (for simulator)  GoBilda should be 383.6f
     public static double CM_PER_TICK = (2 * Math.PI * GEAR_RATIO * WHEEL_RADIUS) / TICKS_PER_ROTATION;
+
+    /** This is for encoder **/
+    static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
+    static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
+    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+            (WHEEL_DIAMETER_INCHES * 3.1415);
 
     private double maxSpeed = 1.0;
 
@@ -156,13 +164,13 @@ class MecanumDrive {
     }
 
     private void setAllWheelsToTargetPosition(int distance) {
-        frontLeft.setTargetPosition(distance);
-        frontRight.setTargetPosition(distance);
-        backLeft.setTargetPosition(distance);
-        backRight.setTargetPosition(distance);
+        frontLeft.setTargetPosition((int) (distance*COUNTS_PER_INCH));
+        frontRight.setTargetPosition((int) (distance*COUNTS_PER_INCH));
+        backLeft.setTargetPosition((int) (distance*COUNTS_PER_INCH));
+        backRight.setTargetPosition((int) (distance*COUNTS_PER_INCH));
     }
 
-    public void moveForward(int distanceInInches, boolean isOpModeActive, int timeoutS){
+    public void moveForward(int distanceInInches, boolean isOpModeActive, int timeoutS, Telemetry telemetry){
         setAllWheelsToTargetPosition(distanceInInches);
         setAllMotorsToRunToPosition();
         runtime.reset();
@@ -170,13 +178,17 @@ class MecanumDrive {
         while (runtime.seconds() < timeoutS &&
                 (frontLeft.isBusy() || frontRight.isBusy())) {
             //wait or print something in telemetry
+            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" + frontLeft.isBusy());
+            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
+            telemetry.update();
+
         }
-        //setSpeeds(1.0, 1.0,1.0, 1.0);
+        setSpeeds(0,0,0,0);
         setAllMotorsToRunUsingEncoder();
 
     }
 
-    public void moveBackward(int distanceInInches, boolean isOpModeActive, int timeoutS){
+    public void moveBackward(int distanceInInches, boolean isOpModeActive, int timeoutS, Telemetry telemetry){
         setAllWheelsToTargetPosition(-distanceInInches);
         setAllMotorsToRunToPosition();
         runtime.reset();
@@ -184,12 +196,15 @@ class MecanumDrive {
         while (runtime.seconds() < timeoutS &&
                 (frontLeft.isBusy() || frontRight.isBusy())) {
             //wait or print something in telemetry
+            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" + frontLeft.isBusy());
+            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
+            telemetry.update();
         }
-        //setSpeeds(1.0, 1.0,1.0, 1.0);
+        setSpeeds(0,0,0,0);
         setAllMotorsToRunUsingEncoder();
     }
 
-    public void strafeLeft(int distanceInInches, boolean isOpModeActive, int timeoutS){
+    public void strafeLeft(int distanceInInches, boolean isOpModeActive, int timeoutS, Telemetry telemetry){
         setAllWheelsToTargetPosition(distanceInInches);
         setAllMotorsToRunToPosition();
         runtime.reset();
@@ -197,13 +212,16 @@ class MecanumDrive {
         while (runtime.seconds() < timeoutS &&
                 (frontLeft.isBusy() || frontRight.isBusy())) {
             //wait or print something in telemetry
+            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" + frontLeft.isBusy());
+            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
+            telemetry.update();
         }
-        //setSpeeds(1.0, 1.0,1.0, 1.0);
+        setSpeeds(0,0,0,0);
         setAllMotorsToRunUsingEncoder();
 
     }
 
-    public void strafeRight(int distanceInInches, boolean isOpModeActive, int timeoutS){
+    public void strafeRight(int distanceInInches, boolean isOpModeActive, int timeoutS, Telemetry telemetry){
         setAllWheelsToTargetPosition(distanceInInches);
         setAllMotorsToRunToPosition();
         runtime.reset();
@@ -211,13 +229,16 @@ class MecanumDrive {
         while (runtime.seconds() < timeoutS &&
                 (frontLeft.isBusy() || frontRight.isBusy())) {
             //wait or print something in telemetry
+            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" + frontLeft.isBusy());
+            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
+            telemetry.update();
         }
-        //setSpeeds(1.0, 1.0,1.0, 1.0);
+        setSpeeds(0,0,0,0);
         setAllMotorsToRunUsingEncoder();
 
     }
 
-    public void rotateLeft(int distanceInInches, boolean isOpModeActive, int timeoutS){
+    public void rotateLeft(int distanceInInches, boolean isOpModeActive, int timeoutS, Telemetry telemetry){
         setAllWheelsToTargetPosition(distanceInInches);
         setAllMotorsToRunToPosition();
         runtime.reset();
@@ -225,13 +246,16 @@ class MecanumDrive {
         while (runtime.seconds() < timeoutS &&
                 (frontLeft.isBusy() || frontRight.isBusy())) {
             //wait or print something in telemetry
+            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" + frontLeft.isBusy());
+            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
+            telemetry.update();
         }
-        //setSpeeds(1.0, 1.0,1.0, 1.0);
+        setSpeeds(0,0,0,0);
         setAllMotorsToRunUsingEncoder();
 
     }
 
-    public void rotateRight(int distanceInInches, boolean isOpModeActive, int timeoutS){
+    public void rotateRight(int distanceInInches, boolean isOpModeActive, int timeoutS, Telemetry telemetry){
         setAllWheelsToTargetPosition(distanceInInches);
         setAllMotorsToRunToPosition();
         runtime.reset();
@@ -239,8 +263,11 @@ class MecanumDrive {
         while (runtime.seconds() < timeoutS &&
                 (frontLeft.isBusy() || frontRight.isBusy())) {
             //wait or print something in telemetry
+            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" + frontLeft.isBusy());
+            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
+            telemetry.update();
         }
-        //setSpeeds(1.0, 1.0,1.0, 1.0);
+        setSpeeds(0,0,0,0);
         setAllMotorsToRunUsingEncoder();
 
     }
@@ -270,26 +297,26 @@ class MecanumDrive {
         driveMecanum(0.0, 0.0, -right);
     }
 
-    public void moveBasedOnTotalRings(int totalRings) {
+    public void moveBasedOnTotalRings(int totalRings, Telemetry telemetry) {
         if(totalRings == 0){
             //Strafe right
-            strafeRight(20, true, 5);
+            strafeRight(20, true, 5, telemetry);
             //Move forward to A
-            moveForward(20, true, 5);
+            moveForward(20, true, 5, telemetry);
 
         }else if(totalRings == 1){
             //Strafe right
-            strafeRight(4);
+            strafeRight(20, true, 5, telemetry);
             //Move forward to A
-            moveForward(10);
+            moveForward(20, true, 5, telemetry);
             //Strafe left to B
-            strafeLeft(4);
+            strafeLeft(20, true, 5, telemetry);
 
         }else if(totalRings == 4){
             //Strafe right
-            strafeRight(12, true, 5);
+            strafeRight(12, true, 5, telemetry);
             //Move forward to A
-            moveForward(24, true, 5);
+            moveForward(24, true, 5, telemetry);
 
         }
     }

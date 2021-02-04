@@ -200,6 +200,7 @@ public class AutonomusMode extends LinearOpMode {
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
                             telemetry.addData(String.format("Total rings height (%d)", i),"%.03f", recognition.getHeight());
                             float totalHeight=recognition.getHeight();
+
                             totalRings = detectRings(totalHeight);
                           }
                           telemetry.update();
