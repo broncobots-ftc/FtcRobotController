@@ -195,9 +195,14 @@ public class AutonomusModeCopy extends LinearOpMode {
 
                     **/
                     mecanumDrive.setAllWheelsToTargetPosition(10);
+                    mecanumDrive.frontLeft.setPower(-0.3);
+                mecanumDrive.frontRight.setPower(1.0);
+                mecanumDrive.backLeft.setPower(1.0);
+                mecanumDrive.backRight.setPower(1.0);
                     mecanumDrive.setAllMotorsToRunToPosition();
+                //https://team9960.org/autonomous-mode/
 
-                    mecanumDrive.driveMecanum(.0, 1.0, 0);
+                    //mecanumDrive.driveMecanum(.0, 0, 1 );
                     telemetry.addLine("moving now.... ");
                     //mecanumDrive.moveBasedOnTotalRings(1, telemetry);
                     telemetry.addLine("moving now....1111 ");

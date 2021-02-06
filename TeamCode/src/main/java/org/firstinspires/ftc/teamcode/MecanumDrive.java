@@ -112,6 +112,7 @@ class MecanumDrive {
 
     void setSpeeds(double flSpeed, double frSpeed, double blSpeed, double brSpeed) {
         double largest = maxSpeed;
+        /*
         largest = Math.max(largest, Math.abs(flSpeed));
         largest = Math.max(largest, Math.abs(frSpeed));
         largest = Math.max(largest, Math.abs(blSpeed));
@@ -121,6 +122,13 @@ class MecanumDrive {
         frontRight.setPower(frSpeed / largest);
         backLeft.setPower(blSpeed / largest);
         backRight.setPower(brSpeed / largest);
+        */
+
+
+        frontLeft.setPower(flSpeed);
+        frontRight.setPower(frSpeed);
+        backLeft.setPower(blSpeed);
+        backRight.setPower(brSpeed);
     }
 
     void driveMecanum(double forward, double strafe, double rotate) {
