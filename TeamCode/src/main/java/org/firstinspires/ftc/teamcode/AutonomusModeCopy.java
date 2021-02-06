@@ -54,7 +54,7 @@ import java.util.List;
  * is explained below.
  */
 @Autonomous(name = "Autonomus Mode Copy", group = "ftc16671")
-@Disabled
+
 public class AutonomusModeCopy extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
@@ -194,12 +194,16 @@ public class AutonomusModeCopy extends LinearOpMode {
                      * move back and strafe to parking line
 
                     **/
+                    mecanumDrive.setAllWheelsToTargetPosition(10);
+                    mecanumDrive.setAllMotorsToRunToPosition();
+
+                    mecanumDrive.driveMecanum(.0, 1.0, 0);
                     telemetry.addLine("moving now.... ");
-                    //mecanumDrive.moveBasedOnTotalRings(1);
+                    //mecanumDrive.moveBasedOnTotalRings(1, telemetry);
                     telemetry.addLine("moving now....1111 ");
                     //mecanumDrive.moveGrabberArmToRelease();
-                    sleep(3000);
-                    mecanumDrive.releaseWobble();
+                    //sleep(3000);
+                    //mecanumDrive.releaseWobble();
                     //sleep(2000);
                    telemetry.update();
                    break;

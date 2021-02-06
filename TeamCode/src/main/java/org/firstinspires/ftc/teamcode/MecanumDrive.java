@@ -163,7 +163,7 @@ class MecanumDrive {
         backRightOffset = backRight.getCurrentPosition();
     }
 
-    private void setAllWheelsToTargetPosition(int distance) {
+    public void setAllWheelsToTargetPosition(int distance) {
         frontLeft.setTargetPosition((int) (distance*COUNTS_PER_INCH));
         frontRight.setTargetPosition((int) (distance*COUNTS_PER_INCH));
         backLeft.setTargetPosition((int) (distance*COUNTS_PER_INCH));
@@ -225,7 +225,7 @@ class MecanumDrive {
         setAllWheelsToTargetPosition(distanceInInches);
         setAllMotorsToRunToPosition();
         runtime.reset();
-        driveMecanum(0.0,0.0,1.0);
+        driveMecanum(0.0,-1.0,0.0);
         while (runtime.seconds() < timeoutS &&
                 (frontLeft.isBusy() || frontRight.isBusy())) {
             //wait or print something in telemetry
@@ -306,11 +306,11 @@ class MecanumDrive {
 
         }else if(totalRings == 1){
             //Strafe right
-            strafeRight(20, true, 5, telemetry);
+            strafeRight(10, true, 5, telemetry);
             //Move forward to A
-            moveForward(20, true, 5, telemetry);
+            moveForward(10, true, 5, telemetry);
             //Strafe left to B
-            strafeLeft(20, true, 5, telemetry);
+            //strafeLeft(10, true, 5, telemetry);
 
         }else if(totalRings == 4){
             //Strafe right
