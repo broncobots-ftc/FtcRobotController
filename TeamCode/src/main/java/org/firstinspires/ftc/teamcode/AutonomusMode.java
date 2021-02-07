@@ -168,6 +168,7 @@ public class AutonomusMode extends LinearOpMode {
         //check following youtube link for detailed navigation
         //https://www.youtube.com/watch?v=gbcdveLP-Ns
         //https://www.youtube.com/watch?v=kZS4cmVRGzI
+        //https://www.youtube.com/watch?v=1712u-KmE6I
         //Get the code from samples - ConceptVuforiaUltimateGoalNavigationWebcam
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
