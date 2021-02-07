@@ -30,15 +30,12 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
@@ -55,9 +52,9 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@Autonomous(name = "Autonomus Mode", group = "ftc16671")
+@Autonomous(name = "Autonomus Mode Old Robot", group = "ftc16671")
 
-public class AutonomusMode extends LinearOpMode {
+public class AutonomusMode4OldRobot extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
@@ -113,9 +110,9 @@ public class AutonomusMode extends LinearOpMode {
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
         //This is for mobile phone
-        //parameters.cameraDirection = CameraDirection.BACK;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
         //This is for external camera - MAKE SURE DEVICE NAME IS CORRECT
-        parameters.cameraName = hardwareMap.get(WebcamName.class, "webcam 1");
+        //parameters.cameraName = hardwareMap.get(WebcamName.class, "webcam 1");
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
     }
 
@@ -170,8 +167,11 @@ public class AutonomusMode extends LinearOpMode {
         initVuforia();
         initTfod();
         mecanumDrive.init(hardwareMap);
-        mecanumDrive.initServo(hardwareMap);
-        mecanumDrive.initShooterMotors(hardwareMap);
+        //mecanumDrive.initServo(hardwareMap);
+        //mecanumDrive.initShooterMotors(hardwareMap);
+        /** Wait for the game to begin */
+        telemetry.addData(">", "Press Play to start op mode");
+        telemetry.update();
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
@@ -185,31 +185,31 @@ public class AutonomusMode extends LinearOpMode {
             //tfod.setZoom(2.5, 1.78);
             tfod.setZoom(1, 16.0/9.0);
         }
-        /** Wait for the game to begin */
-        telemetry.addData(">", "Press Play to start op mode");
-        telemetry.update();
+
         waitForStart();
         long start = System.currentTimeMillis();
         long end = System.currentTimeMillis();
+
         int totalRings = 0;
         if (opModeIsActive()) {
-
             while (opModeIsActive()) {
                 if (tfod != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
                     float seconds = (end - start) / 1000F;
-                    while(seconds <= SECONDS_TO_RUN_RING_DETECTION_FOR) {
+                    while(seconds <= SECONDS_TO_RUN_RING_DETECTION_FOR){
                         telemetry.addData("# seconds passed : ", seconds);
                         telemetry.update();
                         List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                         end = System.currentTimeMillis();
                         seconds = (end - start) / 1000F;
+
                         if (updatedRecognitions != null) {
 
                             telemetry.addData("# Object Detected", updatedRecognitions.size());
                             telemetry.addData("# seconds passed : ", seconds);
-
+                            telemetry.update();
+                            //sleep(5000);
                             // step through the list of recognitions and display boundary info.
                             int i = 0;
                             for (Recognition recognition : updatedRecognitions) {
@@ -225,27 +225,24 @@ public class AutonomusMode extends LinearOpMode {
                             tfod.shutdown();
                         }
                     }
+
                     /**
-                     * detect rings and store that in variable
-                     * move 8 inches forward
-                     * start shooter motors
-                     * lift shooter up
-                     * push ring 1
-                     * push ring 2
-                     * push ring 3
-                     * stop shooter motors
-                     * put shooter down
-                     * move according to ring detection
+                     * detect rings
+                     * first shoot three
+                     * strafe
+                     * move to zone according to detection
                      * release wobble
-                     * move back to parking line
+                     * move back and strafe to parking line
+                     //https://team9960.org/autonomous-mode/
+                     **/
 
-                    **/
+                    //mecanumDrive.moveBasedOnTotalRings(totalRings, telemetry);
 
-                    mecanumDrive.moveBasedOnTotalRings(totalRings, telemetry);
                     //mecanumDrive.moveGrabberArmToRelease();
-                    sleep(3000);
-                    mecanumDrive.releaseWobble();
-                    sleep(2000);
+                    //sleep(3000);
+                    //mecanumDrive.releaseWobble();
+                    //sleep(2000);
+                    //telemetry.update();
                     break;
                 }
             }

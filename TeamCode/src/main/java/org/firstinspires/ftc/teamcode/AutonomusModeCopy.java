@@ -161,29 +161,12 @@ public class AutonomusModeCopy extends LinearOpMode {
         mecanumDrive.init(hardwareMap);
         mecanumDrive.initServo(hardwareMap);
         mecanumDrive.initShooterMotors(hardwareMap);
-        /**
-         * Activate TensorFlow Object Detection before we wait for the start command.
-         * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
-         **/
-        if (tfod != null) {
-            tfod.activate();
-            // For best results, the "aspectRatio" argument
-            // should be set to the value of the images used to create the TensorFlow Object Detection model
-            // (typically 1.78 or 16/9).
-            // Uncomment the following line if you want to adjust the magnification and/or the aspect ratio of the input images.
-            //tfod.setZoom(2.5, 1.78);
-            tfod.setZoom(1, 16.0/9.0);
-        }
         /** Wait for the game to begin */
         telemetry.addData(">", "Press Play to start op mode");
         telemetry.update();
         waitForStart();
-        long start = System.currentTimeMillis();
-        long end = System.currentTimeMillis();
-        int totalRings = 0;
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-                    //object detection
 
                     /**
                      * detect rings
@@ -192,19 +175,10 @@ public class AutonomusModeCopy extends LinearOpMode {
                      * move to zone according to detection
                      * release wobble
                      * move back and strafe to parking line
-
+                     //https://team9960.org/autonomous-mode/
                     **/
-                    mecanumDrive.setAllWheelsToTargetPosition(10);
-                    mecanumDrive.frontLeft.setPower(-0.3);
-                mecanumDrive.frontRight.setPower(1.0);
-                mecanumDrive.backLeft.setPower(1.0);
-                mecanumDrive.backRight.setPower(1.0);
-                    mecanumDrive.setAllMotorsToRunToPosition();
-                //https://team9960.org/autonomous-mode/
-
-                    //mecanumDrive.driveMecanum(.0, 0, 1 );
                     telemetry.addLine("moving now.... ");
-                    //mecanumDrive.moveBasedOnTotalRings(1, telemetry);
+                    mecanumDrive.moveBasedOnTotalRings(1, telemetry);
                     telemetry.addLine("moving now....1111 ");
                     //mecanumDrive.moveGrabberArmToRelease();
                     //sleep(3000);

@@ -26,19 +26,26 @@ class MecanumDrive {
     Servo lifter;
     Servo pusher;
 
+    private double fast = 1.0; // Limit motor power to this value for Andymark RUN_USING_ENCODER mode
+    private double medium = 0.7; // medium speed
+    private double slow = 0.2; // slow speed
+
     public static double GEAR_RATIO = 1.0; // for simulator - ours should be 0.5f;
     public static double WHEEL_RADIUS = 5.0;  // 5 cm
     public static double TICKS_PER_ROTATION = 1120.0;  // From NeveRest (for simulator)  GoBilda should be 383.6f
     public static double CM_PER_TICK = (2 * Math.PI * GEAR_RATIO * WHEEL_RADIUS) / TICKS_PER_ROTATION;
 
     /** This is for encoder **/
-    static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder
+    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
+    static final double     WHEEL_DIAMETER_INCHES   = 3.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
 
     private double maxSpeed = 1.0;
+
+    // drive motor position variables
+    private int flPos; private int frPos; private int blPos; private int brPos;
 
 
     private MatrixF conversion;
@@ -49,7 +56,7 @@ class MecanumDrive {
     private int backRightOffset;
     private int backLeftOffset;
 
-    private ElapsedTime runtime = new ElapsedTime();
+    ElapsedTime runtime = new ElapsedTime();
 
 
     MecanumDrive() {
@@ -178,153 +185,251 @@ class MecanumDrive {
         backRight.setTargetPosition((int) (distance*COUNTS_PER_INCH));
     }
 
-    public void moveForward(int distanceInInches, boolean isOpModeActive, int timeoutS, Telemetry telemetry){
-        setAllWheelsToTargetPosition(distanceInInches);
+    public void moveForward(int distanceInInches, boolean isOpModeActive, int timeoutS, double speed, Telemetry telemetry){
+
+        //get current position for all motors so we can start from there
+        flPos = frontLeft.getCurrentPosition();
+        frPos = frontRight.getCurrentPosition();
+        blPos = backLeft.getCurrentPosition();
+        brPos = backRight.getCurrentPosition();
+
+        // calculate new targets
+        flPos += distanceInInches * COUNTS_PER_INCH;
+        frPos += distanceInInches * COUNTS_PER_INCH;
+        blPos += distanceInInches * COUNTS_PER_INCH;
+        brPos += distanceInInches * COUNTS_PER_INCH;
+
+        //now since we have right positions for all motors, set target positions for all motors
+        frontLeft.setTargetPosition(flPos);
+        frontRight.setTargetPosition(frPos);
+        backLeft.setTargetPosition(blPos);
+        backRight.setTargetPosition(brPos);
+
         setAllMotorsToRunToPosition();
         runtime.reset();
-        driveMecanum(1.0,0.0,0.0);
+        setSpeeds(speed, speed,speed,speed);
         while (runtime.seconds() < timeoutS &&
-                (frontLeft.isBusy() || frontRight.isBusy())) {
+                (frontLeft.isBusy() && frontRight.isBusy())) {
             //wait or print something in telemetry
-            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" + frontLeft.isBusy());
-            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
-            telemetry.update();
-
-        }
-        setSpeeds(0,0,0,0);
-        setAllMotorsToRunUsingEncoder();
-
-    }
-
-    public void moveBackward(int distanceInInches, boolean isOpModeActive, int timeoutS, Telemetry telemetry){
-        setAllWheelsToTargetPosition(-distanceInInches);
-        setAllMotorsToRunToPosition();
-        runtime.reset();
-        driveMecanum(1.0,0.0,0.0);
-        while (runtime.seconds() < timeoutS &&
-                (frontLeft.isBusy() || frontRight.isBusy())) {
-            //wait or print something in telemetry
-            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" + frontLeft.isBusy());
-            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
-            telemetry.update();
-        }
-        setSpeeds(0,0,0,0);
-        setAllMotorsToRunUsingEncoder();
-    }
-
-    public void strafeLeft(int distanceInInches, boolean isOpModeActive, int timeoutS, Telemetry telemetry){
-        setAllWheelsToTargetPosition(distanceInInches);
-        setAllMotorsToRunToPosition();
-        runtime.reset();
-        driveMecanum(0.0,1.0,0.0);
-        while (runtime.seconds() < timeoutS &&
-                (frontLeft.isBusy() || frontRight.isBusy())) {
-            //wait or print something in telemetry
-            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" + frontLeft.isBusy());
-            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
+            telemetry.addLine("Moving forward...");
+            telemetry.addData("Target", "%7d :%7d", flPos, frPos, blPos, brPos);
+            telemetry.addData("Actual", "%7d :%7d", frontLeft.getCurrentPosition(),
+                    frontRight.getCurrentPosition(), backLeft.getCurrentPosition(),
+                    backRight.getCurrentPosition());
             telemetry.update();
         }
         setSpeeds(0,0,0,0);
-        setAllMotorsToRunUsingEncoder();
+
 
     }
 
-    public void strafeRight(int distanceInInches, boolean isOpModeActive, int timeoutS, Telemetry telemetry){
-        setAllWheelsToTargetPosition(distanceInInches);
+    public void moveBackward(int distanceInInches, boolean isOpModeActive, int timeoutS, double speed, Telemetry telemetry){
+
+        //get current position for all motors so we can start from there
+        flPos = frontLeft.getCurrentPosition();
+        frPos = frontRight.getCurrentPosition();
+        blPos = backLeft.getCurrentPosition();
+        brPos = backRight.getCurrentPosition();
+
+        // calculate new targets
+        flPos -= distanceInInches * COUNTS_PER_INCH;
+        frPos -= distanceInInches * COUNTS_PER_INCH;
+        blPos -= distanceInInches * COUNTS_PER_INCH;
+        brPos -= distanceInInches * COUNTS_PER_INCH;
+
+        //now since we have right positions for all motors, set target positions for all motors
+        frontLeft.setTargetPosition(flPos);
+        frontRight.setTargetPosition(frPos);
+        backLeft.setTargetPosition(blPos);
+        backRight.setTargetPosition(brPos);
+
         setAllMotorsToRunToPosition();
         runtime.reset();
-        driveMecanum(0.0,-1.0,0.0);
+        setSpeeds(speed, speed,speed,speed);
         while (runtime.seconds() < timeoutS &&
-                (frontLeft.isBusy() || frontRight.isBusy())) {
+                (frontLeft.isBusy() && frontRight.isBusy())) {
             //wait or print something in telemetry
-            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" + frontLeft.isBusy());
-            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
+            telemetry.addLine("Moving backward...");
+            telemetry.addData("Target", "%7d :%7d", flPos, frPos, blPos, brPos);
+            telemetry.addData("Actual", "%7d :%7d", frontLeft.getCurrentPosition(),
+                    frontRight.getCurrentPosition(), backLeft.getCurrentPosition(),
+                    backRight.getCurrentPosition());
             telemetry.update();
         }
         setSpeeds(0,0,0,0);
-        setAllMotorsToRunUsingEncoder();
 
     }
 
-    public void rotateLeft(int distanceInInches, boolean isOpModeActive, int timeoutS, Telemetry telemetry){
-        setAllWheelsToTargetPosition(distanceInInches);
+    public void strafeLeft(int distanceInInches, boolean isOpModeActive, int timeoutS, double speed, Telemetry telemetry){
+
+        //get current position for all motors so we can start from there
+        flPos = frontLeft.getCurrentPosition();
+        frPos = frontRight.getCurrentPosition();
+        blPos = backLeft.getCurrentPosition();
+        brPos = backRight.getCurrentPosition();
+
+        // calculate new targets
+        flPos -= distanceInInches * COUNTS_PER_INCH;
+        frPos += distanceInInches * COUNTS_PER_INCH;
+        blPos += distanceInInches * COUNTS_PER_INCH;
+        brPos -= distanceInInches * COUNTS_PER_INCH;
+
+        //now since we have right positions for all motors, set target positions for all motors
+        frontLeft.setTargetPosition(flPos);
+        frontRight.setTargetPosition(frPos);
+        backLeft.setTargetPosition(blPos);
+        backRight.setTargetPosition(brPos);
+
         setAllMotorsToRunToPosition();
         runtime.reset();
-        driveMecanum(0.0,0.0,1.0);
+        setSpeeds(speed, speed,speed,speed);
         while (runtime.seconds() < timeoutS &&
-                (frontLeft.isBusy() || frontRight.isBusy())) {
+                (frontLeft.isBusy() && frontRight.isBusy())) {
             //wait or print something in telemetry
-            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" + frontLeft.isBusy());
-            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
+            telemetry.addLine("Strafing left..");
+            telemetry.addData("Target", "%7d :%7d", flPos, frPos, blPos, brPos);
+            telemetry.addData("Actual", "%7d :%7d", frontLeft.getCurrentPosition(),
+                    frontRight.getCurrentPosition(), backLeft.getCurrentPosition(),
+                    backRight.getCurrentPosition());
             telemetry.update();
         }
         setSpeeds(0,0,0,0);
-        setAllMotorsToRunUsingEncoder();
 
     }
 
-    public void rotateRight(int distanceInInches, boolean isOpModeActive, int timeoutS, Telemetry telemetry){
-        setAllWheelsToTargetPosition(distanceInInches);
+    public void strafeRight(int distanceInInches, boolean isOpModeActive, int timeoutS, double speed, Telemetry telemetry){
+
+        //get current position for all motors so we can start from there
+        flPos = frontLeft.getCurrentPosition();
+        frPos = frontRight.getCurrentPosition();
+        blPos = backLeft.getCurrentPosition();
+        brPos = backRight.getCurrentPosition();
+
+        // calculate new targets
+        flPos += distanceInInches * COUNTS_PER_INCH;
+        frPos -= distanceInInches * COUNTS_PER_INCH;
+        blPos -= distanceInInches * COUNTS_PER_INCH;
+        brPos += distanceInInches * COUNTS_PER_INCH;
+
+        //now since we have right positions for all motors, set target positions for all motors
+        frontLeft.setTargetPosition(flPos);
+        frontRight.setTargetPosition(frPos);
+        backLeft.setTargetPosition(blPos);
+        backRight.setTargetPosition(brPos);
+
         setAllMotorsToRunToPosition();
         runtime.reset();
-        driveMecanum(1.0,0.0,-1.0);
+        setSpeeds(speed, speed,speed,speed);
         while (runtime.seconds() < timeoutS &&
-                (frontLeft.isBusy() || frontRight.isBusy())) {
+                (frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy())) {
             //wait or print something in telemetry
-            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" + frontLeft.isBusy());
-            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
+            telemetry.addLine("Strafing right...");
+            telemetry.addData("runtime seconds ",runtime.seconds());
+            telemetry.addData("Target", "%7d :%7d", flPos, frPos, blPos, brPos);
+            telemetry.addData("Actual", "%7d :%7d", frontLeft.getCurrentPosition(),
+                    frontRight.getCurrentPosition(), backLeft.getCurrentPosition(),
+                    backRight.getCurrentPosition());
             telemetry.update();
         }
         setSpeeds(0,0,0,0);
-        setAllMotorsToRunUsingEncoder();
 
     }
 
+    public void rotateLeft(int distanceInInches, boolean isOpModeActive, int timeoutS, double speed, Telemetry telemetry){
 
-    public void moveForward(double forward){
-        driveMecanum(forward, 0.0, 0.0);
+        //get current position for all motors so we can start from there
+        flPos = frontLeft.getCurrentPosition();
+        frPos = frontRight.getCurrentPosition();
+        blPos = backLeft.getCurrentPosition();
+        brPos = backRight.getCurrentPosition();
+
+        // calculate new targets
+        flPos -= distanceInInches * COUNTS_PER_INCH;
+        frPos += distanceInInches * COUNTS_PER_INCH;
+        blPos -= distanceInInches * COUNTS_PER_INCH;
+        brPos += distanceInInches * COUNTS_PER_INCH;
+
+        //now since we have right positions for all motors, set target positions for all motors
+        frontLeft.setTargetPosition(flPos);
+        frontRight.setTargetPosition(frPos);
+        backLeft.setTargetPosition(blPos);
+        backRight.setTargetPosition(brPos);
+
+        setAllMotorsToRunToPosition();
+        runtime.reset();
+        setSpeeds(speed, speed,speed,speed);
+        while (runtime.seconds() < timeoutS &&
+                (frontLeft.isBusy() && frontRight.isBusy())) {
+            //wait or print something in telemetry
+            telemetry.addLine("Rotating left..");
+            telemetry.addData("Target", "%7d :%7d", flPos, frPos, blPos, brPos);
+            telemetry.addData("Actual", "%7d :%7d", frontLeft.getCurrentPosition(),
+                    frontRight.getCurrentPosition(), backLeft.getCurrentPosition(),
+                    backRight.getCurrentPosition());
+            telemetry.update();
+        }
+        setSpeeds(0,0,0,0);
+
     }
 
-    public void moveBackward(double backward){
-        driveMecanum(-backward, 0.0, 0.0);
+    public void rotateRight(int distanceInInches, boolean isOpModeActive, int timeoutS, double speed, Telemetry telemetry){
+
+        //get current position for all motors so we can start from there
+        flPos = frontLeft.getCurrentPosition();
+        frPos = frontRight.getCurrentPosition();
+        blPos = backLeft.getCurrentPosition();
+        brPos = backRight.getCurrentPosition();
+
+        // calculate new targets
+        flPos += distanceInInches * COUNTS_PER_INCH;
+        frPos -= distanceInInches * COUNTS_PER_INCH;
+        blPos += distanceInInches * COUNTS_PER_INCH;
+        brPos -= distanceInInches * COUNTS_PER_INCH;
+
+        //now since we have right positions for all motors, set target positions for all motors
+        frontLeft.setTargetPosition(flPos);
+        frontRight.setTargetPosition(frPos);
+        backLeft.setTargetPosition(blPos);
+        backRight.setTargetPosition(brPos);
+
+        setAllMotorsToRunToPosition();
+        runtime.reset();
+        setSpeeds(speed, speed,speed,speed);
+        while (runtime.seconds() < timeoutS &&
+                (frontLeft.isBusy() && frontRight.isBusy())) {
+            //wait or print something in telemetry
+            telemetry.addLine("Rotating right...");
+            telemetry.addData("Target", "%7d :%7d", flPos, frPos, blPos, brPos);
+            telemetry.addData("Actual", "%7d :%7d", frontLeft.getCurrentPosition(),
+                    frontRight.getCurrentPosition(), backLeft.getCurrentPosition(),
+                    backRight.getCurrentPosition());
+            telemetry.update();
+        }
+        setSpeeds(0,0,0,0);
+
     }
 
-    public void strafeLeft(double left){
-        driveMecanum(0.0, left, 0.0);
-    }
-
-    public void strafeRight(double right){
-        driveMecanum(0.0, -right, 0.0);
-    }
-
-    public void rotateLeft(double left){
-        driveMecanum(0.0, 0.0, left);
-    }
-
-    public void rotateRight(double right){
-        driveMecanum(0.0, 0.0, -right);
-    }
 
     public void moveBasedOnTotalRings(int totalRings, Telemetry telemetry) {
         if(totalRings == 0){
             //Strafe right
-            strafeRight(20, true, 5, telemetry);
+            //strafeRight(20, true, 5, fast, telemetry);
             //Move forward to A
-            moveForward(20, true, 5, telemetry);
+            //moveForward(20, true, 5, fast, telemetry);
 
         }else if(totalRings == 1){
             //Strafe right
-            strafeRight(10, true, 5, telemetry);
+            //rotateRight(3, true, 5, slow, telemetry);
             //Move forward to A
-            moveForward(10, true, 5, telemetry);
+            moveBackward(2, true, 5, slow, telemetry);
             //Strafe left to B
-            //strafeLeft(10, true, 5, telemetry);
+            //strafeLeft(10, true, 5, fast, telemetry);
 
         }else if(totalRings == 4){
             //Strafe right
-            strafeRight(12, true, 5, telemetry);
+            strafeRight(1, true, 5, fast, telemetry);
             //Move forward to A
-            moveForward(24, true, 5, telemetry);
+            //moveForward(24, true, 5, fast, telemetry);
 
         }
     }
