@@ -165,6 +165,10 @@ public class AutonomusMode extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        //check following youtube link for detailed navigation
+        //https://www.youtube.com/watch?v=gbcdveLP-Ns
+        //https://www.youtube.com/watch?v=kZS4cmVRGzI
+        //Get the code from samples - ConceptVuforiaUltimateGoalNavigationWebcam
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();
