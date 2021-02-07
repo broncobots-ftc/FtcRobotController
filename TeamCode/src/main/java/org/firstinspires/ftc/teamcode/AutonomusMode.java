@@ -169,9 +169,14 @@ public class AutonomusMode extends LinearOpMode {
         //https://www.youtube.com/watch?v=gbcdveLP-Ns
         //https://www.youtube.com/watch?v=kZS4cmVRGzI
         //https://www.youtube.com/watch?v=1712u-KmE6I
+        //To understand more about run using encoder or run to position - look at this -
+        //https://stemrobotics.cs.pdx.edu/node/4746
         //Get the code from samples - ConceptVuforiaUltimateGoalNavigationWebcam
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
+        //This is pretty good - https://www.youtube.com/watch?v=AxKrJEtfuaI
+        //github link - https://github.com/gearsincorg/FTCVuforiaDemo
+        //
         initVuforia();
         initTfod();
         mecanumDrive.init(hardwareMap);
