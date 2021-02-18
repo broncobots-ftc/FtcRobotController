@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.matrices.GeneralMatrixF;
@@ -269,10 +270,10 @@ class MecanumDrive {
         brPos = backRight.getCurrentPosition();
 
         // calculate new targets
-        flPos -= distanceInInches * COUNTS_PER_INCH;
-        frPos += distanceInInches * COUNTS_PER_INCH;
-        blPos += distanceInInches * COUNTS_PER_INCH;
-        brPos -= distanceInInches * COUNTS_PER_INCH;
+        flPos += distanceInInches * COUNTS_PER_INCH;
+        frPos -= distanceInInches * COUNTS_PER_INCH;
+        blPos -= distanceInInches * COUNTS_PER_INCH;
+        brPos += distanceInInches * COUNTS_PER_INCH;
 
         //now since we have right positions for all motors, set target positions for all motors
         frontLeft.setTargetPosition(flPos);
@@ -306,10 +307,10 @@ class MecanumDrive {
         brPos = backRight.getCurrentPosition();
 
         // calculate new targets
-        flPos += distanceInInches * COUNTS_PER_INCH;
-        frPos -= distanceInInches * COUNTS_PER_INCH;
-        blPos -= distanceInInches * COUNTS_PER_INCH;
-        brPos += distanceInInches * COUNTS_PER_INCH;
+        flPos -= distanceInInches * COUNTS_PER_INCH;
+        frPos += distanceInInches * COUNTS_PER_INCH;
+        blPos += distanceInInches * COUNTS_PER_INCH;
+        brPos -= distanceInInches * COUNTS_PER_INCH;
 
         //now since we have right positions for all motors, set target positions for all motors
         frontLeft.setTargetPosition(flPos);
@@ -344,10 +345,10 @@ class MecanumDrive {
         brPos = backRight.getCurrentPosition();
 
         // calculate new targets
-        flPos -= distanceInInches * COUNTS_PER_INCH;
-        frPos += distanceInInches * COUNTS_PER_INCH;
-        blPos -= distanceInInches * COUNTS_PER_INCH;
-        brPos += distanceInInches * COUNTS_PER_INCH;
+        flPos += distanceInInches * COUNTS_PER_INCH;
+        frPos -= distanceInInches * COUNTS_PER_INCH;
+        blPos += distanceInInches * COUNTS_PER_INCH;
+        brPos -= distanceInInches * COUNTS_PER_INCH;
 
         //now since we have right positions for all motors, set target positions for all motors
         frontLeft.setTargetPosition(flPos);
@@ -381,10 +382,10 @@ class MecanumDrive {
         brPos = backRight.getCurrentPosition();
 
         // calculate new targets
-        flPos += distanceInInches * COUNTS_PER_INCH;
-        frPos -= distanceInInches * COUNTS_PER_INCH;
-        blPos += distanceInInches * COUNTS_PER_INCH;
-        brPos -= distanceInInches * COUNTS_PER_INCH;
+        flPos -= distanceInInches * COUNTS_PER_INCH;
+        frPos += distanceInInches * COUNTS_PER_INCH;
+        blPos -= distanceInInches * COUNTS_PER_INCH;
+        brPos += distanceInInches * COUNTS_PER_INCH;
 
         //now since we have right positions for all motors, set target positions for all motors
         frontLeft.setTargetPosition(flPos);
@@ -412,34 +413,69 @@ class MecanumDrive {
 
     public void moveBasedOnTotalRings(int totalRings, Telemetry telemetry) {
         if(totalRings == 0){
-            //Strafe right
-            //strafeRight(20, true, 5, fast, telemetry);
+            //Strafe left to B
+            strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            //moveForward(20, true, 5, fast, telemetry);
+            moveForward(57, true, 5, fast, telemetry);
+            //Strafe left to B
+            strafeRight(30, true, 5, fast, telemetry);
 
         }else if(totalRings == 1){
             //Strafe right
             //rotateRight(3, true, 5, slow, telemetry);
-            //Move forward to A
-            moveBackward(2, true, 5, slow, telemetry);
             //Strafe left to B
-            //strafeLeft(10, true, 5, fast, telemetry);
+            strafeLeft(15, true, 5, fast, telemetry);
+            //Move forward to A
+            moveForward(60, true, 5, fast, telemetry);
+            //
+            putWobbelArmDown();
+            //
+            releaseWobble();
+            //
+            //moveBackward(10, true, 5, fast, telemetry);
+            //
+            putWobbelArmUp();
 
         }else if(totalRings == 4){
             //Strafe right
-            strafeRight(1, true, 5, fast, telemetry);
+            strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            //moveForward(24, true, 5, fast, telemetry);
+            moveForward(76, true, 5, fast, telemetry);
+            //Strafe left to
+            strafeRight(32, true, 5, fast, telemetry);
+            //
+            putWobbelArmDown();
+            //
+            releaseWobble();
+            //
+            //moveBackward(10, true, 5, fast, telemetry);
+            //
+            putWobbelArmUp();
 
         }
     }
 
     public void grabWobble(){
-        grabber.setPosition(0);
+        double grabberPosition = 0.0;
+        grabber.setPosition(grabberPosition);
     }
 
     public void releaseWobble(){
-        grabber.setPosition(1.0);
+        double grabberPosition = 0.4;
+        grabber.setPosition(grabberPosition);
+        sleep(1000);
+    }
+
+    public void putWobbelArmDown(){
+        double armPosition = 0.2;
+        wobbleArm.setPosition(armPosition);
+        sleep(2000);
+    }
+
+    public void putWobbelArmUp(){
+        double armPosition = .8;
+        wobbleArm.setPosition(armPosition);
+        sleep(2000);
     }
 
     public void runIntake(double intakePower){
