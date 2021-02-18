@@ -76,7 +76,7 @@ public class AutonomusMode extends LinearOpMode {
     static final int fourRingsMinHeight = 240;
     static final int fourRingsMaxHeight = 340;
 
-    static final int SECONDS_TO_RUN_RING_DETECTION_FOR = 5;
+    static final int SECONDS_TO_RUN_RING_DETECTION_FOR = 1;
 
     private MecanumDrive mecanumDrive = new MecanumDrive();
     private ElapsedTime runtime = new ElapsedTime();
@@ -250,11 +250,13 @@ public class AutonomusMode extends LinearOpMode {
                      * move back to parking line
 
                     **/
-
+                    //Create a function to move 3 inches and shoot 3 rings
                     mecanumDrive.moveBasedOnTotalRings(totalRings, telemetry);
                     //mecanumDrive.moveGrabberArmToRelease();
                     sleep(3000);
-                    mecanumDrive.releaseWobble();
+                    mecanumDrive.putWobbleDownUp();
+                    // Get other wobble and put in square based on homw many rings there are
+                    //Make function to move to line, depending on how many rings there are
                     sleep(2000);
                     break;
                 }

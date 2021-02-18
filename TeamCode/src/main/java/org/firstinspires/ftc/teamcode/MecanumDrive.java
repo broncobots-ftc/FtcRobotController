@@ -501,5 +501,14 @@ class MecanumDrive {
         }
     }
 
+    public void putWobbleDownUp(){
+        // Put the arm down
+        moveWobbleArmDown();
+        // Open the fingers
+        releaseWobble();
+        // Lift the arm back up
+        moveWobbleArmUp();
+    }
+
 
 }
