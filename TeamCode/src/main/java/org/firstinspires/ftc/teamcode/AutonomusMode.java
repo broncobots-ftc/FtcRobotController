@@ -237,11 +237,14 @@ public class AutonomusMode extends LinearOpMode {
                     }
                     /**
                      * detect rings and store that in variable
-                     * move 8 inches forward
+                     * move 3 inches forward
+                     * strafe left 21 inches
                      * start shooter motors
                      * lift shooter up
                      * push ring 1
+                     * strafe left 7.5 inches
                      * push ring 2
+                     * strafe left 7.5 inches
                      * push ring 3
                      * stop shooter motors
                      * put shooter down

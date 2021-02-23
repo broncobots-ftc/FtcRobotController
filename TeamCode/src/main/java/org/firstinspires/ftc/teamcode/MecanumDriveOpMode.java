@@ -224,7 +224,7 @@ pusherMaxPosition = 0.6;
 
         }
         if(gamepad2.y){
-            lifterPosition = 0.42;
+            lifterPosition = .525;
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             telemetry.addData("lifter servo", "position=" + lifterPosition + "  actual="
                     + mecanumDrive.lifter.getPosition());

@@ -414,45 +414,45 @@ class MecanumDrive {
     public void moveBasedOnTotalRings(int totalRings, Telemetry telemetry) {
         if(totalRings == 0){
             //Strafe left to B
-            strafeLeft(15, true, 5, fast, telemetry);
+            //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForward(57, true, 5, fast, telemetry);
-            //Strafe left to B
-            strafeRight(30, true, 5, fast, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 39, 59, telemetry);
 
         }else if(totalRings == 1){
             //Strafe right
             //rotateRight(3, true, 5, slow, telemetry);
             //Strafe left to B
-            strafeLeft(15, true, 5, fast, telemetry);
-            //Move forward to A
-            moveForward(60, true, 5, fast, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 57, 37, telemetry);
             //
-            putWobbelArmDown();
+            //putWobbelArmDown();
             //
-            releaseWobble();
+            //releaseWobble();
             //
             //moveBackward(10, true, 5, fast, telemetry);
             //
-            putWobbelArmUp();
+            //putWobbelArmUp();
 
         }else if(totalRings == 4){
             //Strafe right
-            strafeLeft(15, true, 5, fast, telemetry);
+            //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForward(76, true, 5, fast, telemetry);
-            //Strafe left to
-            strafeRight(32, true, 5, fast, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 72, 59, telemetry);
             //
-            putWobbelArmDown();
+            //putWobbelArmDown();
             //
-            releaseWobble();
+            //releaseWobble();
             //
             //moveBackward(10, true, 5, fast, telemetry);
             //
-            putWobbelArmUp();
+            //putWobbelArmUp();
 
         }
+    }
+
+    public void moveForwardAndRightBasedOnRings(int totalRings, int autoForward, int autoRight, Telemetry telemetry){
+        moveForward(autoForward, true, 5, fast, telemetry);
+        //Strafe left to
+        strafeRight(autoRight, true, 5, fast, telemetry);
     }
 
     public void grabWobble(){
@@ -539,11 +539,11 @@ class MecanumDrive {
 
     public void putWobbleDownUp(){
         // Put the arm down
-        moveWobbleArmDown();
+        putWobbelArmDown();
         // Open the fingers
         releaseWobble();
         // Lift the arm back up
-        moveWobbleArmUp();
+        putWobbelArmUp();
     }
 
 
