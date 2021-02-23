@@ -223,6 +223,13 @@ pusherMaxPosition = 0.6;
                     + mecanumDrive.lifter.getPosition());
 
         }
+        if(gamepad2.y){
+            lifterPosition = 0.45;
+            mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
+            telemetry.addData("lifter servo", "position=" + lifterPosition + "  actual="
+                    + mecanumDrive.lifter.getPosition());
+
+        }
         //supply gamepad values to run motors, servo and other parts of robots
         mecanumDrive.driveMecanum(forward, strafe, rotate);
         distances = mecanumDrive.getDistanceCm();
