@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.matrices.GeneralMatrixF;
@@ -412,17 +411,44 @@ class MecanumDrive {
 
 
     public void moveBasedOnTotalRings(int totalRings, Telemetry telemetry) {
+        //First step drive 3 inches foward
+        moveForward(20, true, 5, fast, telemetry);
+        //straif left 21 inches
+        shootPowerShots(.525);
+        sleep(1000);
+        strafeLeft(21, true, 5,slow,telemetry);
+        //lift and shoot ring power shot new function
+        pushRingForwardBack();
+        //straif 8 more inches
+        strafeLeft(8, true, 5,slow,telemetry);
+        //lift and shoot ring power shot
+        sleep(500);
+        pushRingForwardBack();
+        //straif 7 inches
+        strafeLeft(7, true, 5,slow,telemetry);
+        //Lift and shoot power shot
+        sleep(500);
+        pushRingForwardBack();
+        sleep(500);
+        // Stoping the shooter motors
+        runShooterBack(0);
+        runShooterFront(0);
+        // Pushing lifter down
+        moveLifter(.599);
+
+
+
         if(totalRings == 0){
             //Strafe left to B
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForwardAndRightBasedOnRings(totalRings, 39, 59, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 24, 59, telemetry);
 
         }else if(totalRings == 1){
             //Strafe right
             //rotateRight(3, true, 5, slow, telemetry);
             //Strafe left to B
-            moveForwardAndRightBasedOnRings(totalRings, 57, 37, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 42, 37, telemetry);
             //
             //putWobbelArmDown();
             //
@@ -436,7 +462,7 @@ class MecanumDrive {
             //Strafe right
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForwardAndRightBasedOnRings(totalRings, 72, 59, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 57, 59, telemetry);
             //
             //putWobbelArmDown();
             //
@@ -500,8 +526,11 @@ class MecanumDrive {
     public void moveWobbleArmDown() {
         wobbleArm.setPosition(1.0);
     }
-    public void moveLifterUp() {
+    public void moveLifter() {
         lifter.setPosition(0);
+    }
+    public void moveLifter(double lifterPosition) {
+        lifter.setPosition(lifterPosition);
     }
     public void moveLifterDown() {
         lifter.setPosition(1.0);
@@ -545,6 +574,22 @@ class MecanumDrive {
         // Lift the arm back up
         putWobbelArmUp();
     }
+
+    public void  shootPowerShots(double lifterPosition){
+        // Start shooter motors
+        runShooterFront(0.95);
+        runShooterBack(0.95);
+        // Move the lifter up
+        moveLifter(lifterPosition);
+
+
+    }
+
+   public void pushRingForwardBack(){
+        pusher.setPosition(0.64);
+        sleep(500);
+        pusher.setPosition(0);
+   }
 
 
 }

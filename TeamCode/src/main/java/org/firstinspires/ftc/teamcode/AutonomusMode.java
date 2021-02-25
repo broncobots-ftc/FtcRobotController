@@ -256,11 +256,11 @@ public class AutonomusMode extends LinearOpMode {
                     //Create a function to move 3 inches and shoot 3 rings
                     mecanumDrive.moveBasedOnTotalRings(totalRings, telemetry);
                     //mecanumDrive.moveGrabberArmToRelease();
-                    sleep(3000);
+                    //sleep(3000);
                     mecanumDrive.putWobbleDownUp();
                     // Get other wobble and put in square based on homw many rings there are
                     //Make function to move to line, depending on how many rings there are
-                    sleep(2000);
+                    //sleep(2000);
                     break;
                 }
             }
