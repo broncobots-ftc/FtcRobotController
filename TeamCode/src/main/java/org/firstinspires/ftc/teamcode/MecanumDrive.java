@@ -442,7 +442,7 @@ class MecanumDrive {
             //Strafe left to B
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForwardAndRightBasedOnRings(totalRings, 24, 58, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 24, 56, telemetry);
 
         }else if(totalRings == 1){
             //Strafe right
@@ -462,7 +462,7 @@ class MecanumDrive {
             //Strafe right
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForwardAndRightBasedOnRings(totalRings, 57, 58, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 57, 56, telemetry);
             //
             //putWobbelArmDown();
             //
