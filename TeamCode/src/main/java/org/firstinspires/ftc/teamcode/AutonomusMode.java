@@ -192,7 +192,7 @@ public class AutonomusMode extends LinearOpMode {
             // should be set to the value of the images used to create the TensorFlow Object Detection model
             // (typically 1.78 or 16/9).
             // Uncomment the following line if you want to adjust the magnification and/or the aspect ratio of the input images.
-            tfod.setZoom(2.5, 1.78);
+            tfod.setZoom(1.2, 1.78);
             //tfod.setZoom(1, 16.0/9.0);
         }
         /** Wait for the game to begin */
