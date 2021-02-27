@@ -412,9 +412,9 @@ class MecanumDrive {
 
     public void moveBasedOnTotalRings(int totalRings, Telemetry telemetry) {
         //First step drive 3 inches foward
-        moveForward(20, true, 5, fast, telemetry);
+        moveForward(18, true, 5, fast, telemetry);
         //straif left 21 inches
-        shootPowerShots(.525);
+        shootPowerShots(.527);
         sleep(1000);
         strafeLeft(21, true, 5,slow,telemetry);
         //lift and shoot ring power shot new function
@@ -442,13 +442,13 @@ class MecanumDrive {
             //Strafe left to B
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForwardAndRightBasedOnRings(totalRings, 24, 59, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 24, 58, telemetry);
 
         }else if(totalRings == 1){
             //Strafe right
             //rotateRight(3, true, 5, slow, telemetry);
             //Strafe left to B
-            moveForwardAndRightBasedOnRings(totalRings, 42, 37, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 40, 37, telemetry);
             //
             //putWobbelArmDown();
             //
@@ -462,7 +462,7 @@ class MecanumDrive {
             //Strafe right
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForwardAndRightBasedOnRings(totalRings, 57, 59, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 57, 58, telemetry);
             //
             //putWobbelArmDown();
             //

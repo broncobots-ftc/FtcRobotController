@@ -192,8 +192,8 @@ public class AutonomusMode extends LinearOpMode {
             // should be set to the value of the images used to create the TensorFlow Object Detection model
             // (typically 1.78 or 16/9).
             // Uncomment the following line if you want to adjust the magnification and/or the aspect ratio of the input images.
-            //tfod.setZoom(2.5, 1.78);
-            tfod.setZoom(1, 16.0/9.0);
+            tfod.setZoom(2.5, 1.78);
+            //tfod.setZoom(1, 16.0/9.0);
         }
         /** Wait for the game to begin */
         telemetry.addData(">", "Press Play to start op mode");
@@ -235,6 +235,7 @@ public class AutonomusMode extends LinearOpMode {
                             tfod.shutdown();
                         }
                     }
+                    mecanumDrive.grabWobble();
                     /**
                      * detect rings and store that in variable
                      * move 3 inches forward
