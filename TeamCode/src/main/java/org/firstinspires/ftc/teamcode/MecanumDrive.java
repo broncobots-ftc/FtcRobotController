@@ -411,6 +411,8 @@ class MecanumDrive {
 
 
     public void moveBasedOnTotalRings(int totalRings, Telemetry telemetry) {
+        //setting pusher position
+        pusher.setPosition(0.64);
         //First step drive 3 inches foward
         moveForward(18, true, 5, fast, telemetry);
         //straif left 21 inches
@@ -442,13 +444,13 @@ class MecanumDrive {
             //Strafe left to B
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForwardAndRightBasedOnRings(totalRings, 24, 56, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 24, 58, telemetry);
 
         }else if(totalRings == 1){
             //Strafe right
             //rotateRight(3, true, 5, slow, telemetry);
             //Strafe left to B
-            moveForwardAndRightBasedOnRings(totalRings, 40, 37, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 40, 39, telemetry);
             //
             //putWobbelArmDown();
             //
@@ -462,7 +464,7 @@ class MecanumDrive {
             //Strafe right
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForwardAndRightBasedOnRings(totalRings, 57, 56, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 57, 58, telemetry);
             //
             //putWobbelArmDown();
             //
@@ -474,7 +476,21 @@ class MecanumDrive {
 
         }
     }
-
+    public void parkOnLineBasedOnRings(int totalRings, Telemetry telemetry){
+        if(totalRings==0){
+            //Strafe left about 18 inches
+            strafeLeft(21,true,5,fast,telemetry);
+            //Move forward 8 inches, to white line
+            moveForward(11,true,5,fast,telemetry);
+        }else if (totalRings==1){
+            //Move backward 6 inches
+            moveBackward(6, true,5,fast,telemetry);
+        }else if (totalRings==4){
+            strafeLeft(5, true, 5, fast, telemetry);
+            //Move backward 30 inches
+            moveBackward(25,true,5,fast,telemetry);
+        }
+    }
     public void moveForwardAndRightBasedOnRings(int totalRings, int autoForward, int autoRight, Telemetry telemetry){
         moveForward(autoForward, true, 5, fast, telemetry);
         //Strafe left to
@@ -586,9 +602,10 @@ class MecanumDrive {
     }
 
    public void pushRingForwardBack(){
-        pusher.setPosition(0.64);
-        sleep(500);
+
         pusher.setPosition(0);
+        sleep(500);
+        pusher.setPosition(0.64);
    }
 
 
