@@ -416,9 +416,9 @@ public class MecanumDrive {
         //First step drive 3 inches foward
         moveForward(18, true, 5, fast, telemetry);
         //straif left 21 inches
-        shootPowerShots(.527);
+        shootPowerShots(.526);
         sleep(1000);
-        strafeLeft(21, true, 5,slow,telemetry);
+        strafeLeft(24, true, 5,slow,telemetry);
         //lift and shoot ring power shot new function
         pushRingForwardBack();
         //straif 8 more inches
@@ -427,7 +427,7 @@ public class MecanumDrive {
         sleep(500);
         pushRingForwardBack();
         //straif 7 inches
-        strafeLeft(7, true, 5,slow,telemetry);
+        strafeLeft(8, true, 5,slow,telemetry);
         //Lift and shoot power shot
         sleep(500);
         pushRingForwardBack();
@@ -444,13 +444,13 @@ public class MecanumDrive {
             //Strafe left to B
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForwardAndRightBasedOnRings(totalRings, 24, 58, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 24, 61, telemetry);
 
         }else if(totalRings == 1){
             //Strafe right
             //rotateRight(3, true, 5, slow, telemetry);
             //Strafe left to B
-            moveForwardAndRightBasedOnRings(totalRings, 40, 39, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 40, 42, telemetry);
             //
             //putWobbelArmDown();
             //
@@ -464,7 +464,7 @@ public class MecanumDrive {
             //Strafe right
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForwardAndRightBasedOnRings(totalRings, 57, 58, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 57, 61, telemetry);
             //
             //putWobbelArmDown();
             //
