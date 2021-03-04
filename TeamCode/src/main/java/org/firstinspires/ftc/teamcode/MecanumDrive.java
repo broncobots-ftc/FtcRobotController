@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.matrices.GeneralMatrixF;
 import org.firstinspires.ftc.robotcore.external.matrices.MatrixF;
 
-class MecanumDrive {
+public class MecanumDrive {
     DcMotor frontLeft;
     DcMotor frontRight;
     DcMotor backRight;
@@ -59,7 +59,7 @@ class MecanumDrive {
     ElapsedTime runtime = new ElapsedTime();
 
 
-    MecanumDrive() {
+    public MecanumDrive() {
 
         float[] data = {1.0f, 1.0f, 1.0f,
                 1.0f, -1.0f, -1.0f,
@@ -476,6 +476,14 @@ class MecanumDrive {
 
         }
     }
+
+    /**
+     * After the robot has place the wobble in the corresponding square, the robot moves to the line from wherever it previously was.
+     * It was able to do this based on total ring there were.
+     *
+     * @param totalRings -
+     * @param telemetry
+     */
     public void parkOnLineBasedOnRings(int totalRings, Telemetry telemetry){
         if(totalRings==0){
             //Strafe left about 18 inches
