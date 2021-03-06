@@ -477,6 +477,73 @@ public class MecanumDrive {
         }
     }
 
+    public void moveBasedOnTotalRingsForTowerGoal(int totalRings, Telemetry telemetry) {
+        //setting pusher position
+        pusher.setPosition(0.64);
+        //First step drive 3 inches foward
+        moveForward(18, true, 5, fast, telemetry);
+        //straif left 21 inches
+        shootPowerShots(.526);
+        sleep(1000);
+        //strafeLeft(24, true, 5,slow,telemetry);
+        //lift and shoot ring power shot new function
+        pushRingForwardBack();
+        //straif 8 more inches
+        //strafeLeft(8, true, 5,slow,telemetry);
+        //lift and shoot ring power shot
+        sleep(500);
+        pushRingForwardBack();
+        //straif 7 inches
+        //strafeLeft(8, true, 5,slow,telemetry);
+        //Lift and shoot power shot
+        sleep(500);
+        pushRingForwardBack();
+        sleep(500);
+        // Stoping the shooter motors
+        runShooterBack(0);
+        runShooterFront(0);
+        // Pushing lifter down
+        moveLifter(.599);
+
+
+
+        if(totalRings == 0){
+            //Strafe left to B
+            //strafeLeft(15, true, 5, fast, telemetry);
+            //Move forward to A
+            moveForwardAndRightBasedOnRings(totalRings, 24, 61, telemetry);
+
+        }else if(totalRings == 1){
+            //Strafe right
+            //rotateRight(3, true, 5, slow, telemetry);
+            //Strafe left to B
+            moveForwardAndRightBasedOnRings(totalRings, 40, 42, telemetry);
+            //
+            //putWobbelArmDown();
+            //
+            //releaseWobble();
+            //
+            //moveBackward(10, true, 5, fast, telemetry);
+            //
+            //putWobbelArmUp();
+
+        }else if(totalRings == 4){
+            //Strafe right
+            //strafeLeft(15, true, 5, fast, telemetry);
+            //Move forward to A
+            moveForwardAndRightBasedOnRings(totalRings, 57, 61, telemetry);
+            //
+            //putWobbelArmDown();
+            //
+            //releaseWobble();
+            //
+            //moveBackward(10, true, 5, fast, telemetry);
+            //
+            //putWobbelArmUp();
+
+        }
+    }
+
     /**
      * After the robot has place the wobble in the corresponding square, the robot moves to the line from wherever it previously was.
      * It was able to do this based on total ring there were.
