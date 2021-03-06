@@ -179,6 +179,7 @@ public class AutonomusModeTowerGoal extends LinearOpMode {
         mecanumDrive.init(hardwareMap);
         mecanumDrive.initServo(hardwareMap);
         mecanumDrive.initShooterMotors(hardwareMap);
+        mecanumDrive.initIntakeAndConveyor(hardwareMap);
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.

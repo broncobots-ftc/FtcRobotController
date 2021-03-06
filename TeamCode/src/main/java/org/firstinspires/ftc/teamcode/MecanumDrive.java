@@ -481,10 +481,10 @@ public class MecanumDrive {
         //setting pusher position
         pusher.setPosition(0.64);
         //First step drive 3 inches foward
-        moveForward(18, true, 5, fast, telemetry);
+        moveForward(24, true, 5, fast, telemetry);
         //straif left 21 inches
         shootPowerShots(.526);
-        sleep(1000);
+        sleep(1500);
         //strafeLeft(24, true, 5,slow,telemetry);
         //lift and shoot ring power shot new function
         pushRingForwardBack();
@@ -499,6 +499,18 @@ public class MecanumDrive {
         sleep(500);
         pushRingForwardBack();
         sleep(500);
+        moveLifter(.599);
+
+        runIntake(1.0);
+        //starting intake to pick up extra ring
+        moveForward(10, true,5, slow, telemetry);
+        moveLifter(0.515);
+        sleep(3000);
+        pushRingForwardBack();
+        sleep(500);
+        pushRingForwardBack();
+        sleep(500);
+        pushRingForwardBack();
         // Stoping the shooter motors
         runShooterBack(0);
         runShooterFront(0);
@@ -511,13 +523,13 @@ public class MecanumDrive {
             //Strafe left to B
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForwardAndRightBasedOnRings(totalRings, 24, 61, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 24, 26, telemetry);
 
         }else if(totalRings == 1){
             //Strafe right
             //rotateRight(3, true, 5, slow, telemetry);
             //Strafe left to B
-            moveForwardAndRightBasedOnRings(totalRings, 40, 42, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 40, 7, telemetry);
             //
             //putWobbelArmDown();
             //
@@ -531,7 +543,7 @@ public class MecanumDrive {
             //Strafe right
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForwardAndRightBasedOnRings(totalRings, 57, 61, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 57, 26, telemetry);
             //
             //putWobbelArmDown();
             //
