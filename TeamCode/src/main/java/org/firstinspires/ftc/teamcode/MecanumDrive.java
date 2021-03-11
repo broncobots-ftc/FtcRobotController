@@ -484,9 +484,9 @@ public class MecanumDrive {
         //running intake backwards to spread out rings
         runIntake(1);
         //First step drive 3 inches foward
-        moveForward(26, true, 5, fast, telemetry);
+        moveForward(28, true, 5, fast, telemetry);
         //straif left 21 inches
-        shootPowerShots(.526);
+        shootPowerShots(.520);//.526
         sleep(1500);
         //strafeLeft(24, true, 5,slow,telemetry);
         //lift and shoot ring power shot new function
@@ -541,17 +541,17 @@ public class MecanumDrive {
             //putWobbelArmUp();
 
         }else if(totalRings == 4){
-            sleep(1000);
+            //sleep(1000);
 
             runConveyor(-1.0);
             runIntake(-1.0);
             //starting intake to pick up extra ring
-            moveForward(24, true,5, verySlow, telemetry);
-            sleep(5000);
+            moveForward(26, true,5, verySlow, telemetry);
+            sleep(4000);
             runIntake(0);
             runConveyor(0);
             moveLifter(0.515);
-            sleep(3000);
+            sleep(2000);
             pushRingForwardBack();
             sleep(500);
             pushRingForwardBack();
@@ -566,7 +566,7 @@ public class MecanumDrive {
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
             //moveForwardAndRightBasedOnRings(totalRings, 33, 26, telemetry);
-            strafeRightMoveForwardBasedOnRings(totalRings, 33, 26, telemetry);
+            strafeRightMoveForwardBasedOnRings(totalRings, 38, 29, telemetry);
             //
             //putWobbelArmDown();
             //
@@ -600,7 +600,7 @@ public class MecanumDrive {
             telemetry.update();
             strafeLeft(5, true, 5, fast, telemetry);
             //Move backward 30 inches
-            moveBackward(25,true,5,fast,telemetry);
+            moveBackward(20,true,5,fast,telemetry);
         }
     }
     public void moveForwardAndRightBasedOnRings(int totalRings, int autoForward, int autoRight, Telemetry telemetry){
