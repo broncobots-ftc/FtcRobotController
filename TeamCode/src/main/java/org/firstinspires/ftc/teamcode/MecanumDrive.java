@@ -28,7 +28,8 @@ public class MecanumDrive {
 
     private double fast = 1.0; // Limit motor power to this value for Andymark RUN_USING_ENCODER mode
     private double medium = 0.7; // medium speed
-    private double slow = 0.2; // slow speed
+
+    private double slow = 0.4; // slow speed
     private double verySlow = 0.05; //very slow speed
 
     public static double GEAR_RATIO = 1.0; // for simulator - ours should be 0.5f;
@@ -486,7 +487,7 @@ public class MecanumDrive {
         //First step drive 3 inches foward
         moveForward(28, true, 5, fast, telemetry);
         //straif left 21 inches
-        shootPowerShots(.520);//.526
+        shootPowerShots(.517);//.526
         sleep(1500);
         //strafeLeft(24, true, 5,slow,telemetry);
         //lift and shoot ring power shot new function
@@ -518,7 +519,7 @@ public class MecanumDrive {
             //Strafe left to B
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForwardAndRightBasedOnRings(totalRings, 24, 26, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 15, 30, telemetry);
 
         }else if(totalRings == 1){
             // Stoping the shooter motors
@@ -589,9 +590,9 @@ public class MecanumDrive {
     public void parkOnLineBasedOnRings(int totalRings, Telemetry telemetry){
         if(totalRings==0){
             //Strafe left about 18 inches
-            strafeLeft(21,true,5,fast,telemetry);
+            strafeLeft(23,true,5,fast,telemetry);
             //Move forward 8 inches, to white line
-            moveForward(11,true,5,fast,telemetry);
+            moveForward(9,true,5,fast,telemetry);
         }else if (totalRings==1){
             //Move backward 6 inches
             moveBackward(6, true,5,fast,telemetry);
@@ -708,6 +709,29 @@ public class MecanumDrive {
         // Lift the arm back up
         putWobbelArmUp();
     }
+
+    public void putSecondWobbleDownUp(int totalRings, Telemetry telemetry){
+       if (totalRings == 0){
+           //stopping intake
+           runIntake(0);
+           //strafe left 25"
+           strafeLeft(25,true, 5, fast, telemetry);
+           //move backward
+           moveBackward(47, true, 5,fast, telemetry);
+           //strafe right
+           strafeRight(18, true, 5, fast, telemetry);
+           //moving backward to starighten robot
+           moveBackward(2, true, 5, fast, telemetry);
+           //rotate
+           rotateRight(2,true,5,fast,telemetry);
+           //move forward
+           moveForward(46, true, 10, slow, telemetry);
+           //
+           moveBackward(2, true, 5, fast, telemetry);
+
+       }
+    }
+
 
     public void  shootPowerShots(double lifterPosition){
         // Start shooter motors
