@@ -483,11 +483,14 @@ public class MecanumDrive {
         //setting pusher position
         pusher.setPosition(0.64);
         //running intake backwards to spread out rings
-        runIntake(1);
+        if (totalRings == 4){
+            runIntake(1);
+        }
+
         //First step drive 3 inches foward
         moveForward(28, true, 5, fast, telemetry);
         //straif left 21 inches
-        shootPowerShots(.517);//.526
+        shootPowerShots(.514);//.526
         sleep(1500);
         //strafeLeft(24, true, 5,slow,telemetry);
         //lift and shoot ring power shot new function
@@ -522,6 +525,16 @@ public class MecanumDrive {
             moveForwardAndRightBasedOnRings(totalRings, 15, 30, telemetry);
 
         }else if(totalRings == 1){
+            runConveyor(-1.0);
+            runIntake(-1.0);
+            //starting intake to pick up extra ring
+            moveForward(7, true,5, fast, telemetry);
+            sleep(3500);
+            runIntake(0);
+            runConveyor(0);
+            moveLifter(0.515);
+            sleep(2000);
+            pushRingForwardBack();
             // Stoping the shooter motors
             runShooterBack(0);
             runShooterFront(0);
@@ -531,7 +544,7 @@ public class MecanumDrive {
             //rotateRight(3, true, 5, slow, telemetry);
             //Strafe left to B
            // moveForwardAndRightBasedOnRings(totalRings, 40, 7, telemetry);
-            strafeRightMoveForwardBasedOnRings(totalRings, 40, 7, telemetry);
+            strafeRightMoveForwardBasedOnRings(totalRings, 20, 15, telemetry);
             //
             //putWobbelArmDown();
             //
@@ -595,7 +608,7 @@ public class MecanumDrive {
             moveForward(9,true,5,fast,telemetry);
         }else if (totalRings==1){
             //Move backward 6 inches
-            moveBackward(6, true,5,fast,telemetry);
+            moveBackward(8, true,5,fast,telemetry);
         }else if (totalRings==4){
             telemetry.addLine("strafing left and moving backward");
             telemetry.update();
@@ -722,8 +735,29 @@ public class MecanumDrive {
            strafeRight(18, true, 5, fast, telemetry);
            //moving backward to starighten robot
            moveBackward(2, true, 5, fast, telemetry);
+           //sleeping
+           sleep(1000);
            //rotate
            rotateRight(2,true,5,fast,telemetry);
+           //move forward
+           moveForward(46, true, 10, slow, telemetry);
+           //
+           moveBackward(2, true, 5, fast, telemetry);
+
+       }else if(totalRings==1){
+           //stopping intake
+           runIntake(0);
+           //strafe left 25"
+           strafeLeft(10,true, 5, fast, telemetry);
+           //move backward
+           moveBackward(53, true, 5,fast, telemetry);
+           moveBackward(4,true, 5,slow,telemetry);
+           //strafe right
+           strafeRight(18, true, 5, fast, telemetry);
+           //moving backward to starighten robot
+           moveBackward(2, true, 5, fast, telemetry);
+           //rotate
+           rotateLeft(2,true,5,fast,telemetry);
            //move forward
            moveForward(46, true, 10, slow, telemetry);
            //
