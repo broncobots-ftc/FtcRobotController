@@ -77,8 +77,8 @@ public class MecanumDriveOpMode extends OpMode {
         if(gamepad2.right_trigger > 0 || gamepad2.left_trigger > 0){
             mecanumDrive.shooterFront.setTargetPosition(4000000);
             mecanumDrive.shooterBack.setTargetPosition(4000000);
-            mecanumDrive.shooterFront.setPower(.8);
-            mecanumDrive.shooterBack.setPower(.8);
+            mecanumDrive.shooterFront.setPower(1);
+            mecanumDrive.shooterBack.setPower(1);
             telemetry.addData("shooter front", "position=" +  mecanumDrive.shooterFront.getCurrentPosition());
             telemetry.addData("shooter back", "position=" +  mecanumDrive.shooterBack.getCurrentPosition());
            /* mecanumDrive.runShooterFront(1);
@@ -86,14 +86,14 @@ public class MecanumDriveOpMode extends OpMode {
         }
 
         if(gamepad2.right_trigger == 0 && gamepad2.left_trigger == 0) {
-            mecanumDrive.shooterFront.setPower(0);
-            mecanumDrive.shooterBack.setPower(0);
+            mecanumDrive.shooterFront.setPower(-.2);
+            mecanumDrive.shooterBack.setPower(-.2);
             /*mecanumDrive.runShooterFront(0.0);
             mecanumDrive.runShooterBack(0.0);*/
         }
 
         //use gamepad2 left bumper to grab the wobber and move the arm up as well
-        if(gamepad2.left_bumper || gamepad2.dpad_left){
+        if(gamepad2.left_bumper){
             grabberPosition = 0.4;
 
             mecanumDrive.grabber.setPosition(Range.clip(grabberPosition, MIN_POSITION, MAX_POSITION));
@@ -103,7 +103,7 @@ public class MecanumDriveOpMode extends OpMode {
             //telemetry.addData("arm servo", "position=" + armPosition + "  actual="
             //        + mecanumDrive.wobbleArm.getPosition());
         }
-        if(gamepad2.right_bumper || gamepad2.dpad_right){
+        if(gamepad2.right_bumper){
             grabberPosition = MIN_POSITION;
 
             mecanumDrive.grabber.setPosition(Range.clip(grabberPosition, MIN_POSITION, MAX_POSITION));

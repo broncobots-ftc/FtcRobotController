@@ -564,7 +564,7 @@ public class MecanumDrive {
             sleep(4000);
             runIntake(0);
             runConveyor(0);
-            moveLifter(0.515);
+            moveLifter(0.519);
             sleep(2000);
             pushRingForwardBack();
             sleep(500);
