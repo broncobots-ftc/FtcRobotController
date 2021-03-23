@@ -163,25 +163,33 @@ pusherMaxPosition = 0.6;
                     + mecanumDrive.pusher.getPosition());
         }
         */
-        pusherPosition =0.64;
-        mecanumDrive.pusher.setPosition(Range.clip(pusherPosition, MIN_POSITION, MAX_POSITION));
+        pusherPosition =0;
+        pusherMinPosition = 0;
+        pusherMaxPosition = 0.8;
+        mecanumDrive.pusher.setPosition(pusherMaxPosition);
+
         if (gamepad2.b) {
-            if (pusherPosition > MIN_POSITION) {
-                pusherPosition = MIN_POSITION;
+            if (pusherPosition > pusherMinPosition) {
+                pusherPosition = pusherMinPosition;
 
             }
-            mecanumDrive.pusher.setPosition(Range.clip(pusherPosition, MIN_POSITION, MAX_POSITION));
+            //mecanumDrive.pusher.setPosition(Range.clip(pusherPosition, pusherMinPosition, pusherMaxPosition));
+            mecanumDrive.pusher.setPosition(pusherMinPosition);
+            telemetry.addData("pusher servo", "position=" + pusherPosition + "  actual="
+                    + mecanumDrive.pusher.getPosition());
             //wait
-            MecanumDrive.sleep(500);
+            MecanumDrive.sleep(400);
             //
-            if(mecanumDrive.pusher.getPosition() == MIN_POSITION ){
-                pusherPosition =  MAX_POSITION;
+            if(mecanumDrive.pusher.getPosition() <= pusherMinPosition ){
+                pusherPosition =  pusherMaxPosition;
             }
+            //mecanumDrive.pusher.setPosition(Range.clip(pusherPosition, pusherMinPosition, pusherMaxPosition));
+            mecanumDrive.pusher.setPosition(pusherMaxPosition);
 
-            mecanumDrive.pusher.setPosition(Range.clip(pusherPosition, MIN_POSITION, MAX_POSITION));
             telemetry.addData("pusher servo", "position=" + pusherPosition + "  actual="
                     + mecanumDrive.pusher.getPosition());
         }
+
 
 
 

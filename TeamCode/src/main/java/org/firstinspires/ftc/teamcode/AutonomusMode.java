@@ -76,7 +76,7 @@ public class AutonomusMode extends LinearOpMode {
     static final int fourRingsMinHeight = 240;
     static final int fourRingsMaxHeight = 340;
 
-    static final int SECONDS_TO_RUN_RING_DETECTION_FOR = 1;
+    static final int SECONDS_TO_RUN_RING_DETECTION_FOR = 0;
 
     private MecanumDrive mecanumDrive = new MecanumDrive();
     private ElapsedTime runtime = new ElapsedTime();

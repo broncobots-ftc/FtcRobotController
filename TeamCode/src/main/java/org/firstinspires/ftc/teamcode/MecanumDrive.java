@@ -419,21 +419,21 @@ public class MecanumDrive {
         moveForward(18, true, 5, fast, telemetry);
         //straif left 21 inches
         shootPowerShots(.526);
-        sleep(1000);
+        sleep(900);
         strafeLeft(24, true, 5,slow,telemetry);
         //lift and shoot ring power shot new function
         pushRingForwardBack();
         //straif 8 more inches
         strafeLeft(8, true, 5,slow,telemetry);
         //lift and shoot ring power shot
-        sleep(500);
+        sleep(400);
         pushRingForwardBack();
         //straif 7 inches
         strafeLeft(8, true, 5,slow,telemetry);
         //Lift and shoot power shot
-        sleep(500);
+        sleep(400);
         pushRingForwardBack();
-        sleep(500);
+        sleep(400);
         // Stoping the shooter motors
         runShooterBack(0);
         runShooterFront(0);
@@ -491,21 +491,21 @@ public class MecanumDrive {
         moveForward(28, true, 5, fast, telemetry);
         //straif left 21 inches
         shootPowerShots(.514);//.526
-        sleep(1500);
+        sleep(1400);
         //strafeLeft(24, true, 5,slow,telemetry);
         //lift and shoot ring power shot new function
         pushRingForwardBack();
         //straif 8 more inches
         //strafeLeft(8, true, 5,slow,telemetry);
         //lift and shoot ring power shot
-        sleep(500);
+        sleep(400);
         pushRingForwardBack();
         //straif 7 inches
         //strafeLeft(8, true, 5,slow,telemetry);
         //Lift and shoot power shot
-        sleep(500);
+        sleep(400);
         pushRingForwardBack();
-        sleep(500);
+        sleep(400);
         moveLifter(.599);
        // runIntake(1);
         if(totalRings == 0 ) {
@@ -779,9 +779,9 @@ public class MecanumDrive {
 
    public void pushRingForwardBack(){
 
-        pusher.setPosition(0);
+        pusher.setPosition(0);// used to be zero changed on 3-20  it is a forward position
         sleep(500);
-        pusher.setPosition(0.64);
+        pusher.setPosition(0.7); // back position is 0.64
    }
 
 
