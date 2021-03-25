@@ -529,11 +529,11 @@ public class MecanumDrive {
             runIntake(-1.0);
             //starting intake to pick up extra ring
             moveForward(7, true,5, fast, telemetry);
-            sleep(3500);
+            sleep(3000);
             runIntake(0);
             runConveyor(0);
             moveLifter(0.515);
-            sleep(2000);
+            sleep(1000);
             pushRingForwardBack();
             // Stoping the shooter motors
             runShooterBack(0);
@@ -544,7 +544,7 @@ public class MecanumDrive {
             //rotateRight(3, true, 5, slow, telemetry);
             //Strafe left to B
            // moveForwardAndRightBasedOnRings(totalRings, 40, 7, telemetry);
-            strafeRightMoveForwardBasedOnRings(totalRings, 20, 15, telemetry);
+            strafeRightMoveForwardBasedOnRings(totalRings, 24, 19, telemetry);
             //
             //putWobbelArmDown();
             //
@@ -580,7 +580,11 @@ public class MecanumDrive {
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
             //moveForwardAndRightBasedOnRings(totalRings, 33, 26, telemetry);
+
+
             strafeRightMoveForwardBasedOnRings(totalRings, 38, 29, telemetry);
+            //rotate
+            rotateRight(2,true,5,fast,telemetry);
             //
             //putWobbelArmDown();
             //
@@ -732,7 +736,7 @@ public class MecanumDrive {
            //move backward
            moveBackward(47, true, 5,fast, telemetry);
            //strafe right
-           strafeRight(18, true, 5, fast, telemetry);
+           strafeRight(20, true, 5, fast, telemetry);
            //moving backward to starighten robot
            moveBackward(2, true, 5, fast, telemetry);
            //sleeping
@@ -740,32 +744,55 @@ public class MecanumDrive {
            //rotate
            rotateRight(2,true,5,fast,telemetry);
            //move forward
-           moveForward(46, true, 10, slow, telemetry);
+           moveForward(48, true, 10, slow, telemetry);
            //
            moveBackward(2, true, 5, fast, telemetry);
 
        }else if(totalRings==1){
            //stopping intake
            runIntake(0);
+           /* wobble arm up, turn 180, put wobble arm down, go forward, grip wobble, wobble arm up,
+            turn 180, go forward, wobble arm down, release wobble, strafe left, go back.
+
+
+            */
+
+           /*
            //strafe left 25"
-           strafeLeft(10,true, 5, fast, telemetry);
+           strafeLeft(16,true, 5, fast, telemetry);
            //move backward
-           moveBackward(53, true, 5,fast, telemetry);
+           moveBackward(59, true, 5,fast, telemetry);
            moveBackward(4,true, 5,slow,telemetry);
            //strafe right
-           strafeRight(18, true, 5, fast, telemetry);
+           strafeRight(21, true, 5, fast, telemetry);
            //moving backward to starighten robot
            moveBackward(2, true, 5, fast, telemetry);
            //rotate
            rotateLeft(2,true,5,fast,telemetry);
            //move forward
-           moveForward(46, true, 10, slow, telemetry);
+           moveForward(50, true, 10, medium, telemetry);
            //
            moveBackward(2, true, 5, fast, telemetry);
+
+            */
 
        }
     }
 
+    public void putSecondWobbleUsingArm(int totalrings, Telemetry telemetry){
+         /* wobble arm up, turn 180, put wobble arm down, go forward, grip wobble, wobble arm up,
+            turn 180, go forward, wobble arm down, release wobble, strafe left, go back. */
+        rotateLeft(2,true,5,fast,telemetry);
+        moveForward(60, true, 10, fast, telemetry);
+        moveWobbleArmDown();
+        grabWobble();
+        rotateRight(2, true, 5, fast, telemetry);
+        moveForward(60, true, 10, fast, telemetry);
+        releaseWobble();
+        putWobbelArmUp();
+        //strafeLeft(10, true, 5,fast, telemetry);
+        //moveForward(5, true, 5, fast, telemetry);
+    }
 
     public void  shootPowerShots(double lifterPosition){
         // Start shooter motors
