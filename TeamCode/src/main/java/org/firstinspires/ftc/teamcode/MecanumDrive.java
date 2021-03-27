@@ -486,18 +486,19 @@ public class MecanumDrive {
         if (totalRings == 4){
             runIntake(0);
         }
-
+        runShooterFront(0.95);
+        runShooterBack(0.95);
         //First step drive 3 inches foward
         moveForward(26, true, 5, fast, telemetry);
         //straif left 21 inches
-        shootPowerShots(.512);//.526
+        shootPowerShots(.507);//.526
         sleep(1400);
         //strafeLeft(24, true, 5,slow,telemetry);
         //lift and shoot ring power shot new function
         pushRingForwardBack();
         //straif 8 more inches
         //strafeLeft(8, true, 5,slow,telemetry);
-        //lift and shoot ring power shot
+        //lift and shoot rinconng power shot
         sleep(400);
         pushRingForwardBack();
         //straif 7 inches
@@ -529,7 +530,7 @@ public class MecanumDrive {
             runIntake(-1.0);
             //starting intake to pick up extra ring
             moveForward(7, true,5, fast, telemetry);
-            sleep(3000);
+            sleep(3500);
             runIntake(0);
             runConveyor(0);
             moveLifter(0.512);
@@ -606,6 +607,9 @@ public class MecanumDrive {
      */
     public void parkOnLineBasedOnRings(int totalRings, Telemetry telemetry){
         if(totalRings==0){
+            double armPosition = .8s;
+            wobbleArm.setPosition(armPosition);
+            sleep(0);
             //Strafe left about 18 inches
             strafeLeft(23,true,5,fast,telemetry);
             //Move forward 8 inches, to white line
@@ -616,7 +620,7 @@ public class MecanumDrive {
         }else if (totalRings==4){
             telemetry.addLine("strafing left and moving backward");
             telemetry.update();
-            strafeLeft(5, true, 5, fast, telemetry);
+            strafeLeft(0, true, 5, fast, telemetry);
             //Move backward 30 inches
             moveBackward(25,true,5,fast,telemetry);
         }
@@ -641,7 +645,7 @@ public class MecanumDrive {
     public void releaseWobble(){
         double grabberPosition = 0.4;
         grabber.setPosition(grabberPosition);
-        sleep(500);
+        sleep(0);
     }
 
     public void putWobbelArmDown(){
@@ -651,9 +655,9 @@ public class MecanumDrive {
     }
 
     public void putWobbelArmUp(){
-        double armPosition = .8;
+        double armPosition = .35;
         wobbleArm.setPosition(armPosition);
-        sleep(500);
+        sleep(0);
     }
 
     public void runIntake(double intakePower){
@@ -757,24 +761,24 @@ public class MecanumDrive {
 
             */
 
-           /*
+
            //strafe left 25"
-           strafeLeft(16,true, 5, fast, telemetry);
+           strafeLeft(18,true, 5, fast, telemetry);
            //move backward
            moveBackward(59, true, 5,fast, telemetry);
            moveBackward(4,true, 5,slow,telemetry);
            //strafe right
-           strafeRight(21, true, 5, fast, telemetry);
+           strafeRight(17, true, 5, fast, telemetry);
            //moving backward to starighten robot
            moveBackward(2, true, 5, fast, telemetry);
            //rotate
-           rotateLeft(2,true,5,fast,telemetry);
+           rotateLeft(1,true,5,fast,telemetry);
            //move forward
-           moveForward(50, true, 10, medium, telemetry);
+           moveForward(64, true, 10, .5, telemetry);
            //
            moveBackward(2, true, 5, fast, telemetry);
 
-            */
+
 
        }
     }
