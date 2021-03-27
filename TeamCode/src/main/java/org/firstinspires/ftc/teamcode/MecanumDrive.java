@@ -484,13 +484,13 @@ public class MecanumDrive {
         pusher.setPosition(0.64);
         //running intake backwards to spread out rings
         if (totalRings == 4){
-            runIntake(1);
+            runIntake(0);
         }
 
         //First step drive 3 inches foward
-        moveForward(28, true, 5, fast, telemetry);
+        moveForward(26, true, 5, fast, telemetry);
         //straif left 21 inches
-        shootPowerShots(.514);//.526
+        shootPowerShots(.512);//.526
         sleep(1400);
         //strafeLeft(24, true, 5,slow,telemetry);
         //lift and shoot ring power shot new function
@@ -532,7 +532,7 @@ public class MecanumDrive {
             sleep(3000);
             runIntake(0);
             runConveyor(0);
-            moveLifter(0.515);
+            moveLifter(0.512);
             sleep(1000);
             pushRingForwardBack();
             // Stoping the shooter motors
@@ -560,11 +560,11 @@ public class MecanumDrive {
             runConveyor(-1.0);
             runIntake(-1.0);
             //starting intake to pick up extra ring
-            moveForward(26, true,5, verySlow, telemetry);
+            moveForward(30, true,5, verySlow, telemetry);
             sleep(4000);
             runIntake(0);
             runConveyor(0);
-            moveLifter(0.519);
+            moveLifter(0.512);
             sleep(2000);
             pushRingForwardBack();
             sleep(500);
@@ -582,9 +582,9 @@ public class MecanumDrive {
             //moveForwardAndRightBasedOnRings(totalRings, 33, 26, telemetry);
 
 
-            strafeRightMoveForwardBasedOnRings(totalRings, 38, 29, telemetry);
+            strafeRightMoveForwardBasedOnRings(totalRings, 38, 31, telemetry);
             //rotate
-            rotateRight(2,true,5,fast,telemetry);
+            rotateRight(7,true,5,fast,telemetry);
             //
             //putWobbelArmDown();
             //
@@ -618,7 +618,7 @@ public class MecanumDrive {
             telemetry.update();
             strafeLeft(5, true, 5, fast, telemetry);
             //Move backward 30 inches
-            moveBackward(20,true,5,fast,telemetry);
+            moveBackward(25,true,5,fast,telemetry);
         }
     }
     public void moveForwardAndRightBasedOnRings(int totalRings, int autoForward, int autoRight, Telemetry telemetry){
@@ -641,7 +641,7 @@ public class MecanumDrive {
     public void releaseWobble(){
         double grabberPosition = 0.4;
         grabber.setPosition(grabberPosition);
-        sleep(1000);
+        sleep(500);
     }
 
     public void putWobbelArmDown(){
@@ -653,7 +653,7 @@ public class MecanumDrive {
     public void putWobbelArmUp(){
         double armPosition = .8;
         wobbleArm.setPosition(armPosition);
-        sleep(2500);
+        sleep(500);
     }
 
     public void runIntake(double intakePower){
