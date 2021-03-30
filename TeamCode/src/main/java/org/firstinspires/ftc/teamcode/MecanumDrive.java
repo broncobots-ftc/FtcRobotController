@@ -486,13 +486,13 @@ public class MecanumDrive {
         if (totalRings == 4){
             runIntake(0);
         }
-        runShooterFront(0.95);
-        runShooterBack(0.95);
+        runShooterFront(1);
+        runShooterBack(1);
         //First step drive 3 inches foward
-        moveForward(26, true, 5, fast, telemetry);
+        moveForward(27, true, 5, fast, telemetry);
         //straif left 21 inches
-        shootPowerShots(.507);//.526
-        sleep(1400);
+        shootPowerShots(.500);//.526
+        sleep(1000);
         //strafeLeft(24, true, 5,slow,telemetry);
         //lift and shoot ring power shot new function
         pushRingForwardBack();
@@ -561,11 +561,11 @@ public class MecanumDrive {
             runConveyor(-1.0);
             runIntake(-1.0);
             //starting intake to pick up extra ring
-            moveForward(30, true,5, verySlow, telemetry);
+            moveForward(18, true,5, verySlow, telemetry);
             sleep(4000);
             runIntake(0);
             runConveyor(0);
-            moveLifter(0.512);
+            moveLifter(0.509);
             sleep(2000);
             pushRingForwardBack();
             sleep(500);
@@ -583,7 +583,7 @@ public class MecanumDrive {
             //moveForwardAndRightBasedOnRings(totalRings, 33, 26, telemetry);
 
 
-            strafeRightMoveForwardBasedOnRings(totalRings, 38, 31, telemetry);
+            strafeRightMoveForwardBasedOnRings(totalRings, 42, 27, telemetry);
             //rotate
             rotateRight(7,true,5,fast,telemetry);
             //
@@ -607,14 +607,17 @@ public class MecanumDrive {
      */
     public void parkOnLineBasedOnRings(int totalRings, Telemetry telemetry){
         if(totalRings==0){
-            double armPosition = .8s;
+            double armPosition = .8;
             wobbleArm.setPosition(armPosition);
             sleep(0);
             //Strafe left about 18 inches
-            strafeLeft(23,true,5,fast,telemetry);
+            strafeLeft(33,true,5,fast,telemetry);
             //Move forward 8 inches, to white line
             moveForward(9,true,5,fast,telemetry);
         }else if (totalRings==1){
+            double armPosition = .8;
+            wobbleArm.setPosition(armPosition);
+            sleep(0);
             //Move backward 6 inches
             moveBackward(8, true,5,fast,telemetry);
         }else if (totalRings==4){
@@ -623,6 +626,9 @@ public class MecanumDrive {
             strafeLeft(0, true, 5, fast, telemetry);
             //Move backward 30 inches
             moveBackward(25,true,5,fast,telemetry);
+            double armPosition = .8;
+            wobbleArm.setPosition(armPosition);
+            sleep(0);
         }
     }
     public void moveForwardAndRightBasedOnRings(int totalRings, int autoForward, int autoRight, Telemetry telemetry){
