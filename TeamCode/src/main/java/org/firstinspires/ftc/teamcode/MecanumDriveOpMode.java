@@ -31,6 +31,17 @@ public class MecanumDriveOpMode extends OpMode {
         double forward = gamepad1.left_stick_y * -1; //The y direction on the gamepad is reversed idk why
         double strafe = gamepad1.left_stick_x * -1;
         double rotate = gamepad1.right_stick_x * -1;
+        if (gamepad1.left_bumper){
+            //if the left bumper is pressed, the speed will be reduced to 50%
+            double decreaseSpeed = 0.5;
+             forward = (gamepad1.left_stick_y * decreaseSpeed) * -1; //The y direction on the gamepad is reversed idk why
+             strafe = (gamepad1.left_stick_x * decreaseSpeed) * -1;
+             rotate = (gamepad1.right_stick_x * decreaseSpeed) * -1;
+        } else {
+             forward = gamepad1.left_stick_y * -1; //The y direction on the gamepad is reversed idk why
+             strafe = gamepad1.left_stick_x * -1;
+             rotate = gamepad1.right_stick_x * -1;
+        }
         /*
         double gamepadrt = gamepad1.right_trigger;
         double gamepadlt = gamepad1.left_trigger;
@@ -218,7 +229,7 @@ pusherMaxPosition = 0.6;
         }
 */
         if(gamepad2.a){
-            lifterPosition = 0.501;
+            lifterPosition = 0.499;
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             telemetry.addData("lifter servo", "position=" + lifterPosition + "  actual="
                     + mecanumDrive.lifter.getPosition());
@@ -232,7 +243,7 @@ pusherMaxPosition = 0.6;
 
         }
         if(gamepad2.y){
-            lifterPosition = .523;
+            lifterPosition = .500;//.515,.517,.519,.523
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             telemetry.addData("lifter servo", "position=" + lifterPosition + "  actual="
                     + mecanumDrive.lifter.getPosition());
