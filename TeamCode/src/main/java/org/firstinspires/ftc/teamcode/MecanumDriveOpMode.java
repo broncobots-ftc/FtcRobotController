@@ -229,7 +229,7 @@ pusherMaxPosition = 0.6;
         }
 */
         if(gamepad2.a){
-            lifterPosition = 0.499;
+            lifterPosition = 0.498;
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             telemetry.addData("lifter servo", "position=" + lifterPosition + "  actual="
                     + mecanumDrive.lifter.getPosition());
@@ -243,7 +243,7 @@ pusherMaxPosition = 0.6;
 
         }
         if(gamepad2.y){
-            lifterPosition = .500;//.515,.517,.519,.523
+            lifterPosition = .502;//.515,.517,.519,.523
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             telemetry.addData("lifter servo", "position=" + lifterPosition + "  actual="
                     + mecanumDrive.lifter.getPosition());

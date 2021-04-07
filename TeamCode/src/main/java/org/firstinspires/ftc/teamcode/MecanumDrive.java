@@ -484,15 +484,18 @@ public class MecanumDrive {
         pusher.setPosition(0.64);
         //running intake backwards to spread out rings
         if (totalRings == 4){
-            runIntake(0);
+            runIntake(0.5);
         }
         runShooterFront(1);
         runShooterBack(1);
         //First step drive 3 inches foward
         moveForward(27, true, 5, fast, telemetry);
         //straif left 21 inches
-        shootPowerShots(.500);//.526
-        sleep(1000);
+        shootPowerShots(.495);//.526
+        sleep(1500);
+        if (totalRings == 4){
+            runIntake(0);
+        }
         //strafeLeft(24, true, 5,slow,telemetry);
         //lift and shoot ring power shot new function
         pushRingForwardBack();
@@ -565,7 +568,7 @@ public class MecanumDrive {
             sleep(4000);
             runIntake(0);
             runConveyor(0);
-            moveLifter(0.508);
+            moveLifter(0.498);
             sleep(2000);
             pushRingForwardBack();
             sleep(500);
@@ -745,6 +748,8 @@ public class MecanumDrive {
            strafeLeft(25,true, 5, fast, telemetry);
            //move backward
            moveBackward(47, true, 5,fast, telemetry);
+           //rotate - added since right is not exactly going right
+           rotateRight(1,true,5,fast,telemetry);
            //strafe right
            strafeRight(20, true, 5, fast, telemetry);
            //moving backward to starighten robot
@@ -773,6 +778,8 @@ public class MecanumDrive {
            //move backward
            moveBackward(59, true, 5,fast, telemetry);
            moveBackward(4,true, 5,slow,telemetry);
+           //rotate - added since right is not exactly going right
+           rotateRight(1,true,5,fast,telemetry);
            //strafe right
            strafeRight(24, true, 5, fast, telemetry);
            //moving backward to starighten robot
@@ -780,7 +787,7 @@ public class MecanumDrive {
            //rotate
            rotateLeft(2,true,5,fast,telemetry);
            //move forward
-           moveForward(67, true, 10, .5, telemetry);
+           moveForward(64, true, 10, .4, telemetry);
            //
            moveBackward(2, true, 5, fast, telemetry);
 
