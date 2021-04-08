@@ -37,11 +37,17 @@ public class MecanumDriveOpMode extends OpMode {
              forward = (gamepad1.left_stick_y * decreaseSpeed) * -1; //The y direction on the gamepad is reversed idk why
              strafe = (gamepad1.left_stick_x * decreaseSpeed) * -1;
              rotate = (gamepad1.right_stick_x * decreaseSpeed) * -1;
+        } else if(gamepad1.left_bumper && gamepad1.right_bumper){
+            double decreaseSpeed = 0.25;
+            forward = (gamepad1.left_stick_y * decreaseSpeed) * -1; //The y direction on the gamepad is reversed idk why
+            strafe = (gamepad1.left_stick_x * decreaseSpeed) * -1;
+            rotate = (gamepad1.right_stick_x * decreaseSpeed) * -1;
         } else {
              forward = gamepad1.left_stick_y * -1; //The y direction on the gamepad is reversed idk why
              strafe = gamepad1.left_stick_x * -1;
              rotate = gamepad1.right_stick_x * -1;
         }
+
         /*
         double gamepadrt = gamepad1.right_trigger;
         double gamepadlt = gamepad1.left_trigger;
@@ -86,8 +92,8 @@ public class MecanumDriveOpMode extends OpMode {
         // if gamepad 2 right trigger or left trigger are pushed even slightly,
         // both shooters will run full speed
         if(gamepad2.right_trigger > 0 || gamepad2.left_trigger > 0){
-            mecanumDrive.shooterFront.setTargetPosition(4000000);
-            mecanumDrive.shooterBack.setTargetPosition(4000000);
+            //mecanumDrive.shooterFront.setTargetPosition(4000000);
+            //mecanumDrive.shooterBack.setTargetPosition(4000000);
             mecanumDrive.shooterFront.setPower(1);
             mecanumDrive.shooterBack.setPower(1);
             telemetry.addData("shooter front", "position=" +  mecanumDrive.shooterFront.getCurrentPosition());
@@ -97,8 +103,8 @@ public class MecanumDriveOpMode extends OpMode {
         }
 
         if(gamepad2.right_trigger == 0 && gamepad2.left_trigger == 0) {
-            mecanumDrive.shooterFront.setPower(-.2);
-            mecanumDrive.shooterBack.setPower(-.2);
+            mecanumDrive.shooterFront.setPower(0);
+            mecanumDrive.shooterBack.setPower(0);
             /*mecanumDrive.runShooterFront(0.0);
             mecanumDrive.runShooterBack(0.0);*/
         }
@@ -189,7 +195,7 @@ pusherMaxPosition = 0.6;
             telemetry.addData("pusher servo", "position=" + pusherPosition + "  actual="
                     + mecanumDrive.pusher.getPosition());
             //wait
-            MecanumDrive.sleep(400);
+            MecanumDrive.sleep(700);//400
             //
             if(mecanumDrive.pusher.getPosition() <= pusherMinPosition ){
                 pusherPosition =  pusherMaxPosition;
@@ -229,7 +235,7 @@ pusherMaxPosition = 0.6;
         }
 */
         if(gamepad2.a){
-            lifterPosition = 0.498;
+            lifterPosition = 0.480;
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             telemetry.addData("lifter servo", "position=" + lifterPosition + "  actual="
                     + mecanumDrive.lifter.getPosition());
@@ -243,7 +249,7 @@ pusherMaxPosition = 0.6;
 
         }
         if(gamepad2.y){
-            lifterPosition = .502;//.515,.517,.519,.523
+            lifterPosition = .501;//.515,.517,.519,.523
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             telemetry.addData("lifter servo", "position=" + lifterPosition + "  actual="
                     + mecanumDrive.lifter.getPosition());
