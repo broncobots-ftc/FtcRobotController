@@ -95,7 +95,7 @@ public class MecanumDriveOpMode extends OpMode {
             //mecanumDrive.shooterFront.setTargetPosition(4000000);
             //mecanumDrive.shooterBack.setTargetPosition(4000000);
             mecanumDrive.shooterFront.setPower(1);
-            mecanumDrive.shooterBack.setPower(1);
+            mecanumDrive.shooterBack.setPower(0.65);
             telemetry.addData("shooter front", "position=" +  mecanumDrive.shooterFront.getCurrentPosition());
             telemetry.addData("shooter back", "position=" +  mecanumDrive.shooterBack.getCurrentPosition());
            /* mecanumDrive.runShooterFront(1);
