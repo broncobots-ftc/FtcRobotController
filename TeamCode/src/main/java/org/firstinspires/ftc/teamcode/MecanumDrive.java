@@ -484,14 +484,15 @@ public class MecanumDrive {
         pusher.setPosition(0.64);
         //running intake backwards to spread out rings
         if (totalRings == 4){
-            runIntake(0.5);
+            runIntake(1);
         }
         runShooterFront(1);
-        runShooterBack(1);
+        runShooterBack(.65);
         //First step drive 3 inches foward
         moveForward(27, true, 5, fast, telemetry);
         //straif left 21 inches
-        shootPowerShots(.495);//.526
+        rotateRight(1,true,5,fast,telemetry);
+        shootPowerShots(.497);//.526
         sleep(1500);
         if (totalRings == 4){
             runIntake(0);
@@ -511,6 +512,7 @@ public class MecanumDrive {
         pushRingForwardBack();
         sleep(400);
         moveLifter(.599);
+        //rotateLeft(2,true,5,fast,telemetry);
        // runIntake(1);
         if(totalRings == 0 ) {
             // Stoping the shooter motors
@@ -568,7 +570,7 @@ public class MecanumDrive {
             sleep(4000);
             runIntake(0);
             runConveyor(0);
-            moveLifter(0.498);
+            moveLifter(0.502);
             sleep(2000);
             pushRingForwardBack();
             sleep(500);
@@ -586,9 +588,9 @@ public class MecanumDrive {
             //moveForwardAndRightBasedOnRings(totalRings, 33, 26, telemetry);
 
 
-            strafeRightMoveForwardBasedOnRings(totalRings, 42, 29, telemetry);
+            strafeRightMoveForwardBasedOnRings(totalRings, 42, 31, telemetry);
             //rotate
-            rotateRight(9,true,5,fast,telemetry);
+            rotateRight(10,true,5,fast,telemetry);
             //
             //putWobbelArmDown();
             //
@@ -628,7 +630,7 @@ public class MecanumDrive {
             telemetry.update();
             strafeLeft(0, true, 5, fast, telemetry);
             //Move backward 30 inches
-            moveBackward(29,true,5,fast,telemetry);
+            moveBackward(31,true,5,fast,telemetry);
             double armPosition = .8;
             wobbleArm.setPosition(armPosition);
             sleep(0);
@@ -759,7 +761,7 @@ public class MecanumDrive {
            //rotate
            rotateRight(1,true,5,fast,telemetry);
            //move forward
-           moveForward(44, true, 10, slow, telemetry);
+           moveForward(48, true, 10, slow, telemetry);
            //
            moveBackward(2, true, 5, fast, telemetry);
 
@@ -787,7 +789,7 @@ public class MecanumDrive {
            //rotate
            rotateLeft(2,true,5,fast,telemetry);
            //move forward
-           moveForward(64, true, 10, .4, telemetry);
+           moveForward(64, true, 10, .5, telemetry);
            //
            moveBackward(2, true, 5, fast, telemetry);
 

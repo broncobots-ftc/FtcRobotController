@@ -103,10 +103,10 @@ public class MecanumDriveOpMode extends OpMode {
         }
 
         if(gamepad2.right_trigger == 0 && gamepad2.left_trigger == 0) {
-            mecanumDrive.shooterFront.setPower(0);
-            mecanumDrive.shooterBack.setPower(0);
-            /*mecanumDrive.runShooterFront(0.0);
-            mecanumDrive.runShooterBack(0.0);*/
+            mecanumDrive.shooterFront.setPower(-1);
+            mecanumDrive.shooterBack.setPower(-1);
+            mecanumDrive.runShooterFront(-0.3);
+            mecanumDrive.runShooterBack(-0.3);
         }
 
         //use gamepad2 left bumper to grab the wobber and move the arm up as well
@@ -182,7 +182,7 @@ pusherMaxPosition = 0.6;
         */
         pusherPosition =0;
         pusherMinPosition = 0;
-        pusherMaxPosition = 0.55;
+        pusherMaxPosition = 0.59;
         mecanumDrive.pusher.setPosition(pusherMaxPosition);
 
         if (gamepad2.b) {
@@ -235,7 +235,7 @@ pusherMaxPosition = 0.6;
         }
 */
         if(gamepad2.a){
-            lifterPosition = 0.480;
+            lifterPosition = 0.505;
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             telemetry.addData("lifter servo", "position=" + lifterPosition + "  actual="
                     + mecanumDrive.lifter.getPosition());
@@ -249,7 +249,7 @@ pusherMaxPosition = 0.6;
 
         }
         if(gamepad2.y){
-            lifterPosition = .501;//.515,.517,.519,.523
+            lifterPosition = .510;//.515,.517,.519,.523
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             telemetry.addData("lifter servo", "position=" + lifterPosition + "  actual="
                     + mecanumDrive.lifter.getPosition());
