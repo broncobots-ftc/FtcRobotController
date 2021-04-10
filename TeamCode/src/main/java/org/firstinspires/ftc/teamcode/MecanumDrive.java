@@ -492,7 +492,7 @@ public class MecanumDrive {
         moveForward(27, true, 5, fast, telemetry);
         //straif left 21 inches
         rotateRight(1,true,5,fast,telemetry);
-        shootPowerShots(.497);//.526
+        shootPowerShots(.496);//.526-497-499-.498-496-
         sleep(1500);
         if (totalRings == 4){
             runIntake(0);
@@ -528,7 +528,7 @@ public class MecanumDrive {
             //Strafe left to B
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
-            moveForwardAndRightBasedOnRings(totalRings, 15, 30, telemetry);
+            moveForwardAndRightBasedOnRings(totalRings, 16, 30, telemetry);//15-17-15-16
 
         }else if(totalRings == 1){
             runConveyor(-1.0);
@@ -757,11 +757,12 @@ public class MecanumDrive {
            //moving backward to starighten robot
            moveBackward(2, true, 5, fast, telemetry);
            //sleeping
-           sleep(1000);
+           sleep(500);
            //rotate
-           rotateRight(1,true,5,fast,telemetry);
+           rotateRight(2,true,5,fast,telemetry);
            //move forward
-           moveForward(48, true, 10, slow, telemetry);
+           moveForward(47, true, 10, slow, telemetry);//48-46-47
+
            //
            moveBackward(2, true, 5, fast, telemetry);
 
@@ -783,7 +784,12 @@ public class MecanumDrive {
            //rotate - added since right is not exactly going right
            rotateRight(1,true,5,fast,telemetry);
            //strafe right
-           strafeRight(24, true, 5, fast, telemetry);
+           strafeRight(20, true, 5, fast, telemetry);//24-26-27
+           //moving backward to starighten robot
+           //moveBackward(2, true, 5, fast, telemetry);
+           rotateRight(1,true,5,fast,telemetry);
+           //strafe right
+           strafeRight(7, true, 5, medium, telemetry);//24-26-27
            //moving backward to starighten robot
            moveBackward(2, true, 5, fast, telemetry);
            //rotate
