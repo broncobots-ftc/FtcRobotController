@@ -182,7 +182,7 @@ pusherMaxPosition = 0.6;
         */
         pusherPosition =0;
         pusherMinPosition = 0;
-        pusherMaxPosition = 0.59;
+        pusherMaxPosition = 0.65;
         mecanumDrive.pusher.setPosition(pusherMaxPosition);
 
         if (gamepad2.b) {

@@ -337,7 +337,7 @@ public class MecanumDrive {
 
     }
 
-    public void rotateLeft(int distanceInInches, boolean isOpModeActive, int timeoutS, double speed, Telemetry telemetry){
+    public void rotateLeft(double distanceInInches, boolean isOpModeActive, int timeoutS, double speed, Telemetry telemetry){
 
         //get current position for all motors so we can start from there
         flPos = frontLeft.getCurrentPosition();
@@ -374,7 +374,7 @@ public class MecanumDrive {
 
     }
 
-    public void rotateRight(int distanceInInches, boolean isOpModeActive, int timeoutS, double speed, Telemetry telemetry){
+    public void rotateRight(double distanceInInches, boolean isOpModeActive, int timeoutS, double speed, Telemetry telemetry){
 
         //get current position for all motors so we can start from there
         flPos = frontLeft.getCurrentPosition();
@@ -484,15 +484,15 @@ public class MecanumDrive {
         pusher.setPosition(0.64);
         //running intake backwards to spread out rings
         if (totalRings == 4){
-            runIntake(1);
+            runIntake(0.7);
         }
         runShooterFront(1);
         runShooterBack(.65);
         //First step drive 3 inches foward
-        moveForward(27, true, 5, fast, telemetry);
+        moveForward(26, true, 5, medium, telemetry);
         //straif left 21 inches
-        rotateRight(1,true,5,fast,telemetry);
-        shootPowerShots(.496);//.526-497-499-.498-496-
+        rotateLeft(1.2,true,5,fast,telemetry);
+        shootPowerShots(.514);//.526-497-499-.498-496-
         sleep(1500);
         if (totalRings == 4){
             runIntake(0);
@@ -529,16 +529,16 @@ public class MecanumDrive {
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
             moveForwardAndRightBasedOnRings(totalRings, 16, 30, telemetry);//15-17-15-16
-
+            rotateRight(1, true, 5, slow, telemetry);
         }else if(totalRings == 1){
             runConveyor(-1.0);
             runIntake(-1.0);
             //starting intake to pick up extra ring
-            moveForward(7, true,5, fast, telemetry);
+            moveForward(7, true,5, medium, telemetry);
             sleep(3500);
             runIntake(0);
             runConveyor(0);
-            moveLifter(0.509);
+            moveLifter(0.520);
             sleep(1000);
             pushRingForwardBack();
             // Stoping the shooter motors
@@ -547,10 +547,13 @@ public class MecanumDrive {
             // Pushing lifter down
             moveLifter(.599);
             //Strafe right
-            //rotateRight(3, true, 5, slow, telemetry);
+            rotateRight(1.2, true, 5, slow, telemetry);
             //Strafe left to B
            // moveForwardAndRightBasedOnRings(totalRings, 40, 7, telemetry);
-            strafeRightMoveForwardBasedOnRings(totalRings, 24, 12, telemetry);
+            //strafeRightMoveForwardBasedOnRings(totalRings, 24, 25, telemetry);
+            moveForward(24, true,10, medium, telemetry);
+            //
+            rotateRight(1.7, true, 5, slow, telemetry);
             //
             //putWobbelArmDown();
             //
@@ -570,7 +573,7 @@ public class MecanumDrive {
             sleep(4000);
             runIntake(0);
             runConveyor(0);
-            moveLifter(0.502);
+            moveLifter(0.520);
             sleep(2000);
             pushRingForwardBack();
             sleep(500);
@@ -582,13 +585,14 @@ public class MecanumDrive {
             runShooterFront(0);
             // Pushing lifter down
             moveLifter(.599);
+            rotateRight(1,true,5,fast,telemetry);
             //Strafe right
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
             //moveForwardAndRightBasedOnRings(totalRings, 33, 26, telemetry);
 
 
-            strafeRightMoveForwardBasedOnRings(totalRings, 42, 31, telemetry);
+            strafeRightMoveForwardBasedOnRings(totalRings, 42, 36, telemetry);
             //rotate
             rotateRight(10,true,5,fast,telemetry);
             //
@@ -775,27 +779,28 @@ public class MecanumDrive {
 
             */
 
-
+           //
+           rotateLeft(1.7, true, 5, slow, telemetry);
            //strafe left 25"
-           strafeLeft(16,true, 5, fast, telemetry);
+           strafeLeft(2,true, 5, fast, telemetry);
            //move backward
-           moveBackward(59, true, 5,fast, telemetry);
-           moveBackward(4,true, 5,slow,telemetry);
+           moveBackward(62, true, 5,fast, telemetry);//59
+           //moveBackward(4,true, 5,slow,telemetry);
            //rotate - added since right is not exactly going right
-           rotateRight(1,true,5,fast,telemetry);
+           rotateRight(1.1,true,5,fast,telemetry);
            //strafe right
-           strafeRight(20, true, 5, fast, telemetry);//24-26-27
+           strafeRight(15, true, 5, fast, telemetry);//24-26-27
            //moving backward to starighten robot
            //moveBackward(2, true, 5, fast, telemetry);
            rotateRight(1,true,5,fast,telemetry);
            //strafe right
-           strafeRight(7, true, 5, medium, telemetry);//24-26-27
+           strafeRight(12, true, 5, medium, telemetry);//24-26-27
            //moving backward to starighten robot
            moveBackward(2, true, 5, fast, telemetry);
            //rotate
-           rotateLeft(2,true,5,fast,telemetry);
+           rotateLeft(2.2,true,5,fast,telemetry);
            //move forward
-           moveForward(64, true, 10, .5, telemetry);
+           moveForward(62, true, 10, .7, telemetry);//64
            //
            moveBackward(2, true, 5, fast, telemetry);
 
