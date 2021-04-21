@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+ package org.firstinspires.ftc.teamcode;
 
 
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -491,8 +491,8 @@ public class MecanumDrive {
         //First step drive 3 inches foward
         moveForward(26, true, 5, medium, telemetry);
         //straif left 21 inches
-        rotateLeft(1.2,true,5,fast,telemetry);
-        shootPowerShots(.514);//.526-497-499-.498-496-
+        rotateLeft(0.8,true,5,fast,telemetry);
+        shootPowerShots(0.514);//.526-497-499-.498-496-
         sleep(1500);
         if (totalRings == 4){
             runIntake(0);
@@ -512,7 +512,7 @@ public class MecanumDrive {
         pushRingForwardBack();
         sleep(400);
         moveLifter(.599);
-        //rotateLeft(2,true,5,fast,telemetry);
+        //rotaterleft(2,true,5,fast,telemetry);
        // runIntake(1);
         if(totalRings == 0 ) {
             // Stoping the shooter motors
@@ -529,7 +529,7 @@ public class MecanumDrive {
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
             moveForwardAndRightBasedOnRings(totalRings, 16, 30, telemetry);//15-17-15-16
-            rotateRight(1, true, 5, slow, telemetry);
+            //rotateRight(1, true, 5, slow, telemetry);
         }else if(totalRings == 1){
             runConveyor(-1.0);
             runIntake(-1.0);
@@ -547,13 +547,13 @@ public class MecanumDrive {
             // Pushing lifter down
             moveLifter(.599);
             //Strafe right
-            rotateRight(1.2, true, 5, slow, telemetry);
+            //rotateRight(1.2, true, 5, slow, telemetry);
             //Strafe left to B
            // moveForwardAndRightBasedOnRings(totalRings, 40, 7, telemetry);
             //strafeRightMoveForwardBasedOnRings(totalRings, 24, 25, telemetry);
             moveForward(24, true,10, medium, telemetry);
             //
-            rotateRight(1.7, true, 5, slow, telemetry);
+            rotateRight(3.7, true, 5, slow, telemetry);
             //
             //putWobbelArmDown();
             //
@@ -574,6 +574,7 @@ public class MecanumDrive {
             runIntake(0);
             runConveyor(0);
             moveLifter(0.520);
+            rotateLeft(0.8,true, 5, fast, telemetry);
             sleep(2000);
             pushRingForwardBack();
             sleep(500);
@@ -585,7 +586,7 @@ public class MecanumDrive {
             runShooterFront(0);
             // Pushing lifter down
             moveLifter(.599);
-            rotateRight(1,true,5,fast,telemetry);
+            //rotateRight(1,true,5,fast,telemetry);
             //Strafe right
             //strafeLeft(15, true, 5, fast, telemetry);
             //Move forward to A
@@ -780,7 +781,7 @@ public class MecanumDrive {
             */
 
            //
-           rotateLeft(1.7, true, 5, slow, telemetry);
+           rotateLeft(3.7, true, 5, slow, telemetry);
            //strafe left 25"
            strafeLeft(2,true, 5, fast, telemetry);
            //move backward
