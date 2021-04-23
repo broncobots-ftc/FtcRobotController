@@ -95,7 +95,7 @@ public class MecanumDriveOpMode extends OpMode {
             //mecanumDrive.shooterFront.setTargetPosition(4000000);
             //mecanumDrive.shooterBack.setTargetPosition(4000000);
             mecanumDrive.shooterFront.setPower(1);
-            mecanumDrive.shooterBack.setPower(0.65);
+            mecanumDrive.shooterBack.setPower(1);
             telemetry.addData("shooter front", "position=" +  mecanumDrive.shooterFront.getCurrentPosition());
             telemetry.addData("shooter back", "position=" +  mecanumDrive.shooterBack.getCurrentPosition());
            /* mecanumDrive.runShooterFront(1);
@@ -235,7 +235,7 @@ pusherMaxPosition = 0.6;
         }
 */
         if(gamepad2.a){
-            lifterPosition = 0.499;
+            lifterPosition = 0.514;
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             telemetry.addData("lifter servo", "position=" + lifterPosition + "  actual="
                     + mecanumDrive.lifter.getPosition());
@@ -249,7 +249,7 @@ pusherMaxPosition = 0.6;
 
         }
         if(gamepad2.y){
-            lifterPosition = .506;//.515,.517,.519,.523
+            lifterPosition = .525;//.515,.517,.519,.523
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
             telemetry.addData("lifter servo", "position=" + lifterPosition + "  actual="
                     + mecanumDrive.lifter.getPosition());

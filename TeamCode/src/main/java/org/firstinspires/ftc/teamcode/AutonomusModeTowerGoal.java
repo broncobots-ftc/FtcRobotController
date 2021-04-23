@@ -262,6 +262,7 @@ public class AutonomusModeTowerGoal extends LinearOpMode {
                     // Get other wobble and put in square based on homw many rings there are
                     //Make function to move to line, depending on how many rings there are
                     //Move to white line based on total ring , and park
+                    sleep(300);
                     //
                     mecanumDrive.parkOnLineBasedOnRings(totalRings, telemetry);
                     //sleep(2000);
