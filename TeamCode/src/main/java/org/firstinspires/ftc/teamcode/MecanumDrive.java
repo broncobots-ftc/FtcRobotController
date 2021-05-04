@@ -811,18 +811,38 @@ public class MecanumDrive {
     }
 
     public void putSecondWobbleUsingArm(int totalrings, Telemetry telemetry){
-         /* wobble arm up, turn 180, put wobble arm down, go forward, grip wobble, wobble arm up,
-            turn 180, go forward, wobble arm down, release wobble, strafe left, go back. */
-        rotateLeft(2,true,5,fast,telemetry);
-        moveForward(60, true, 10, fast, telemetry);
-        moveWobbleArmDown();
-        grabWobble();
-        rotateRight(2, true, 5, fast, telemetry);
-        moveForward(60, true, 10, fast, telemetry);
-        releaseWobble();
-        putWobbelArmUp();
-        //strafeLeft(10, true, 5,fast, telemetry);
-        //moveForward(5, true, 5, fast, telemetry);
+        if (totalrings == 0){
+            runIntake(0);
+            strafeLeft(1,true,5,slow, telemetry);
+            strafeLeft(11,true,5,fast,telemetry);
+            rotateLeft(35,true,5,fast,telemetry);
+            putWobbelArmDown();
+            releaseWobble();
+            moveForward(13,true,5,fast,telemetry);
+            grabWobble();
+            moveWobbleArmUp();
+            rotateRight(30,true,5,fast,telemetry);
+            moveForward(12,true,5,fast,telemetry);
+            moveWobbleArmDown();
+            releaseWobble();
+            strafeLeft(50,true,5,fast,telemetry);
+            //strafeLeft(10, true, 5,fast, telemetry);
+            //moveForward(5, true, 5, fast, telemetry);
+        }else if (totalrings == 1){
+              /* wobble arm up, turn 180, put wobble arm down, go forward, grip wobble, wobble arm up,
+            turn 18, go forward, wobble arm down, release wobble, strafe left, go back. */
+            rotateLeft(2,true,5,fast,telemetry);
+            moveForward(60, true, 10, fast, telemetry);
+            moveWobbleArmDown();
+            grabWobble();
+            rotateRight(2, true, 5, fast, telemetry);
+            moveForward(60, true, 10, fast, telemetry);
+            releaseWobble();
+            putWobbelArmUp();
+            //strafeLeft(10, true, 5,fast, telemetry);
+            //moveForward(5, true, 5, fast, telemetry);
+        }
+
     }
 
     public void  shootPowerShots(double lifterPosition){
