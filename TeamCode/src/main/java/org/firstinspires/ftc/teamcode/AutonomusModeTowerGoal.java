@@ -258,8 +258,8 @@ public class AutonomusModeTowerGoal extends LinearOpMode {
                     //sleep(3000);
                     mecanumDrive.putWobbleDownUp();
                     //grabbing second wobble if total rings is 0
-                    //mecanumDrive.putSecondWobbleDownUp(totalRings, telemetry);
-                    mecanumDrive.putSecondWobbleUsingArm(totalRings, telemetry);
+                    mecanumDrive.putSecondWobbleDownUp(totalRings, telemetry);
+                    //mecanumDrive.putSecondWobbleUsingArm(totalRings, telemetry);
                     // Get other wobble and put in square based on homw many rings there are
                     //Make function to move to line, depending on how many rings there are
                     //Move to white line based on total ring , and park
