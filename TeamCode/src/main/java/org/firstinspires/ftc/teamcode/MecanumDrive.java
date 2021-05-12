@@ -491,8 +491,8 @@ public class MecanumDrive {
         //First step drive 3 inches foward
         moveForward(26, true, 5, medium, telemetry);
         //straif left 21 inches
-        rotateLeft(0.8,true,5,fast,telemetry);
-        shootPowerShots(0.512);//.526-497-499-.498-496-
+        rotateLeft(0.9,true,5,fast,telemetry);//0.8-0.9
+        shootPowerShots(0.517);//.526-497-499-.498-496-512
         sleep(1500);
         if (totalRings == 4){
             runIntake(0);
@@ -551,9 +551,10 @@ public class MecanumDrive {
             //Strafe left to B
            // moveForwardAndRightBasedOnRings(totalRings, 40, 7, telemetry);
             //strafeRightMoveForwardBasedOnRings(totalRings, 24, 25, telemetry);
+            rotateRight(1.1,true,5,fast,telemetry);//0.9-1.1
             moveForward(24, true,10, medium, telemetry);
             //
-            rotateRight(4.2, true, 5, slow, telemetry);
+           // rotateRight(4.2, true, 5, slow, telemetry);
             //
             //putWobbelArmDown();
             //
@@ -659,7 +660,7 @@ public class MecanumDrive {
     }
 
     public void releaseWobble(){
-        double grabberPosition = 0.4;
+        double grabberPosition = 0.25;//0.4-0.25
         grabber.setPosition(grabberPosition);
         sleep(0);
     }
@@ -781,7 +782,7 @@ public class MecanumDrive {
             */
 
            //
-           rotateLeft(4.2, true, 5, slow, telemetry);
+           //rotateLeft(4.2, true, 5, slow, telemetry);
            //strafe left 25"
            strafeLeft(2,true, 5, fast, telemetry);
            //move backward
@@ -790,19 +791,21 @@ public class MecanumDrive {
            //rotate - added since right is not exactly going right
            rotateRight(1.1,true,5,fast,telemetry);
            //strafe right
-           strafeRight(15, true, 5, fast, telemetry);//24-26-27
+           strafeRight(27, true, 5, medium, telemetry);//24-26-27
            //moving backward to starighten robot
            //moveBackward(2, true, 5, fast, telemetry);
            rotateRight(1,true,5,fast,telemetry);
            //strafe right
-           strafeRight(12, true, 5, medium, telemetry);//24-26-27
+           //strafeRight(12, true, 5, medium, telemetry);//24-26-27
            //moving backward to starighten robot
            moveBackward(2, true, 5, fast, telemetry);
            //rotate
-           rotateLeft(2.2,true,5,fast,telemetry);
+           rotateLeft(1.6,true,5,fast,telemetry);//2.2-1.9-1.6
            //move forward
-           moveForward(62, true, 10, .7, telemetry);//64
+           //moveForward(10, true, 10, medium, telemetry);//64
            //
+           moveForward(66, true, 10, medium, telemetry);//64-62-66
+
            moveBackward(2, true, 5, fast, telemetry);
 
 
