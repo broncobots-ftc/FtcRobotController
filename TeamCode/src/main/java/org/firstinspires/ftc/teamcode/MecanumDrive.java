@@ -660,7 +660,7 @@ public class MecanumDrive {
     }
 
     public void releaseWobble(){
-        double grabberPosition = 0.25;//0.4-0.25
+        double grabberPosition = 0.4;//0.4-0.25
         grabber.setPosition(grabberPosition);
         sleep(0);
     }
@@ -804,7 +804,9 @@ public class MecanumDrive {
            //move forward
            //moveForward(10, true, 10, medium, telemetry);//64
            //
-           moveForward(66, true, 10, medium, telemetry);//64-62-66
+           moveForward(64, true, 10, medium, telemetry);//64-62-66-64
+
+
 
            moveBackward(2, true, 5, fast, telemetry);
 
