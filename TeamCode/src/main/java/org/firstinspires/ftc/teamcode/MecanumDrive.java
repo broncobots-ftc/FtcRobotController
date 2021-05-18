@@ -491,8 +491,8 @@ public class MecanumDrive {
         //First step drive 3 inches foward
         moveForward(26, true, 5, medium, telemetry);
         //straif left 21 inches
-        rotateLeft(0.9,true,5,fast,telemetry);//0.8-0.9
-        shootPowerShots(0.517);//.526-497-499-.498-496-512
+        rotateLeft(1,true,5,fast,telemetry);//0.8-0.9-1
+        shootPowerShots(0.516);//.526-497-499-.498-496-512-517-516
         sleep(1500);
         if (totalRings == 4){
             runIntake(0);
@@ -789,7 +789,7 @@ public class MecanumDrive {
            moveBackward(62, true, 5,fast, telemetry);//59
            //moveBackward(4,true, 5,slow,telemetry);
            //rotate - added since right is not exactly going right
-           rotateRight(1.1,true,5,fast,telemetry);
+           rotateRight(1,true,5,fast,telemetry);
            //strafe right
            strafeRight(27, true, 5, medium, telemetry);//24-26-27
            //moving backward to starighten robot
@@ -800,7 +800,7 @@ public class MecanumDrive {
            //moving backward to starighten robot
            moveBackward(2, true, 5, fast, telemetry);
            //rotate
-           rotateLeft(1.6,true,5,fast,telemetry);//2.2-1.9-1.6
+           rotateLeft(2,true,5,fast,telemetry);//2.2-1.9-1.6-1.7-2
            //move forward
            //moveForward(10, true, 10, medium, telemetry);//64
            //
