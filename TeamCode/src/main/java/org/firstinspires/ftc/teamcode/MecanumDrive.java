@@ -17,8 +17,12 @@ class MecanumDrive {
     DcMotor backRight;
     DcMotor backLeft;
 
+    DcMotor lift;
+    DcMotor carousel;
+
     DcMotor shooterFront;
     DcMotor shooterBack;
+
     DcMotor intake;
     DcMotor conveyor;
 
@@ -80,25 +84,25 @@ class MecanumDrive {
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //grabber = hwMap.get(Servo.class, "left_hand");
-        backRight.setDirection(DcMotor.Direction.REVERSE);
-        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backLeft.setDirection(DcMotor.Direction.REVERSE);
+        frontLeft.setDirection(DcMotor.Direction.REVERSE);
     }
 
     void initServo(HardwareMap hwMap){
         grabber = hwMap.get(Servo.class, "grabber");//0 - control hub
         wobbleArm = hwMap.get(Servo.class, "wobble_arm");//4 - control hub
-        lifter = hwMap.get(Servo.class, "lifter");//5 - control hub
+        lifter = hwMap.get(Servo.class, "lifter1");//5 - control hub
         pusher = hwMap.get(Servo.class, "pusher");//3 - ext hub
 
     }
-    void initShooterMotors(HardwareMap hwMap){
-        shooterFront = hwMap.get(DcMotor.class, "shooter_front");//
-        shooterBack = hwMap.get(DcMotor.class, "shooter_back");
+    void initCarousel_and_lift(HardwareMap hwMap){
+        lift = hwMap.get(DcMotor.class, "lifter");//
+        carousel = hwMap.get(DcMotor.class, "carousel");
     }
 
-    void initIntakeAndConveyor(HardwareMap hwMap){
+    void initIntake(HardwareMap hwMap){
         intake = hwMap.get(DcMotor.class, "intake");
-        conveyor = hwMap.get(DcMotor.class, "conveyor");
+
     }
 
 
@@ -116,6 +120,8 @@ class MecanumDrive {
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         shooterFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         shooterBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
     }
 
     void setSpeeds(double flSpeed, double frSpeed, double blSpeed, double brSpeed) {
@@ -545,6 +551,7 @@ class MecanumDrive {
         // Lift the arm back up
         moveWobbleArmUp();
     }
+
 
 
 }

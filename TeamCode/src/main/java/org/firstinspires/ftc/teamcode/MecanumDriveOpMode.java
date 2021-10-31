@@ -16,10 +16,11 @@ public class MecanumDriveOpMode extends OpMode {
     @Override
     public void init() {
         mecanumDrive.init(hardwareMap);
-        mecanumDrive.initServo(hardwareMap);
-        mecanumDrive.initIntakeAndConveyor(hardwareMap);
-        mecanumDrive.initShooterMotors(hardwareMap);
-        mecanumDrive.lifter.setPosition(1.0);
+        //mecanumDrive.initCarousel_and_lift(hardwareMap);
+        //mecanumDrive.initServo(hardwareMap);
+        //mecanumDrive.initIntake(hardwareMap);
+        //mecanumDrive.initShooterMotors(hardwareMap);
+        //mecanumDrive.lifter.setPosition(1.0);
     }
 
     // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
@@ -47,6 +48,7 @@ public class MecanumDriveOpMode extends OpMode {
         boolean gamepad2RightBumper = gamepad2.right_bumper;
 
          */
+        /************** Commented on 10/21 *********
         //when motor starts moving, lifter position should be at bottom level
         if(mecanumDrive.frontLeft.isBusy() && mecanumDrive.backRight.isBusy()){
             mecanumDrive.lifter.setPosition(1.0);
@@ -81,15 +83,13 @@ public class MecanumDriveOpMode extends OpMode {
             mecanumDrive.shooterBack.setPower(.8);
             telemetry.addData("shooter front", "position=" +  mecanumDrive.shooterFront.getCurrentPosition());
             telemetry.addData("shooter back", "position=" +  mecanumDrive.shooterBack.getCurrentPosition());
-           /* mecanumDrive.runShooterFront(1);
-            mecanumDrive.runShooterBack(1); */
+
         }
 
         if(gamepad2.right_trigger == 0 && gamepad2.left_trigger == 0) {
             mecanumDrive.shooterFront.setPower(0);
             mecanumDrive.shooterBack.setPower(0);
-            /*mecanumDrive.runShooterFront(0.0);
-            mecanumDrive.runShooterBack(0.0);*/
+
         }
 
         //use gamepad2 left bumper to grab the wobber and move the arm up as well
@@ -127,6 +127,11 @@ public class MecanumDriveOpMode extends OpMode {
                     + mecanumDrive.wobbleArm.getPosition());
         }
 
+        *****************************************/
+        //if(gamepad2.y){
+        //mecanumDrive.lifter.
+        //}
+
         /*
         //use gamepad2 right bumper to move the arm down and release the wobble.
         if(gamepad2.right_bumper){
@@ -163,6 +168,7 @@ pusherMaxPosition = 0.6;
                     + mecanumDrive.pusher.getPosition());
         }
         */
+        /************** Commented on 10/21 *********
         pusherPosition =0.64;
         mecanumDrive.pusher.setPosition(Range.clip(pusherPosition, MIN_POSITION, MAX_POSITION));
         if (gamepad2.b) {
@@ -182,7 +188,7 @@ pusherMaxPosition = 0.6;
             telemetry.addData("pusher servo", "position=" + pusherPosition + "  actual="
                     + mecanumDrive.pusher.getPosition());
         }
-
+        *****************************/
 
 
 
@@ -209,6 +215,7 @@ pusherMaxPosition = 0.6;
 
         }
 */
+        /************** Commented on 10/21 *********
         if(gamepad2.a){
             lifterPosition = 0.515;
             mecanumDrive.lifter.setPosition(Range.clip(lifterPosition, MIN_POSITION, MAX_POSITION));
@@ -223,6 +230,31 @@ pusherMaxPosition = 0.6;
                     + mecanumDrive.lifter.getPosition());
 
         }
+         ****************************/
+        //setting power for carousel and lifter
+        /*if(gamepad2.b){
+            mecanumDrive.carousel.setPower(-1.0);
+        }
+        if(gamepad2.x){
+            mecanumDrive.carousel.setPower(1.0);
+        }
+*/
+        //left trigger is intake forward, right is intake backward
+        if (gamepad2.left_trigger > 0){
+
+            mecanumDrive.runIntake(1.0);//take it in
+
+        }
+        if (gamepad2.right_trigger > 0){
+
+            mecanumDrive.runIntake(-1.0);//take it in
+
+        }
+        //carousel is right joystick up and down, lift is left joystick up and down
+        //mecanumDrive.carousel.setPower(gamepad2.right_stick_y);
+
+        //mecanumDrive.lift.setPower(gamepad2.left_stick_y);
+
         //supply gamepad values to run motors, servo and other parts of robots
         mecanumDrive.driveMecanum(forward, strafe, rotate);
         distances = mecanumDrive.getDistanceCm();

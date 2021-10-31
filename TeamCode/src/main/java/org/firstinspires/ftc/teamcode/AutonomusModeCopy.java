@@ -159,8 +159,8 @@ public class AutonomusModeCopy extends LinearOpMode {
         initVuforia();
         initTfod();
         mecanumDrive.init(hardwareMap);
-        mecanumDrive.initServo(hardwareMap);
-        mecanumDrive.initShooterMotors(hardwareMap);
+        //mecanumDrive.initServo(hardwareMap);
+        //mecanumDrive.initShooterMotors(hardwareMap);
         /** Wait for the game to begin */
         telemetry.addData(">", "Press Play to start op mode");
         telemetry.update();
