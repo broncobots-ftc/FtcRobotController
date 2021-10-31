@@ -30,15 +30,12 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
@@ -55,9 +52,9 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@Autonomous(name = "Autonomus Mode", group = "ftc16671")
+@Autonomous(name = "Autonomus Mode Tower Goal", group = "ftc16671")
 
-public class AutonomusMode extends LinearOpMode {
+public class AutonomusModeTowerGoal extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
@@ -76,7 +73,7 @@ public class AutonomusMode extends LinearOpMode {
     static final int fourRingsMinHeight = 240;
     static final int fourRingsMaxHeight = 340;
 
-    static final int SECONDS_TO_RUN_RING_DETECTION_FOR = 0;
+    static final int SECONDS_TO_RUN_RING_DETECTION_FOR = 1;
 
     private MecanumDrive mecanumDrive = new MecanumDrive();
     private ElapsedTime runtime = new ElapsedTime();
@@ -180,8 +177,9 @@ public class AutonomusMode extends LinearOpMode {
         initVuforia();
         initTfod();
         mecanumDrive.init(hardwareMap);
-        //mecanumDrive.initServo(hardwareMap);
-        //mecanumDrive.initShooterMotors(hardwareMap);
+        mecanumDrive.initServo(hardwareMap);
+        mecanumDrive.initShooterMotors(hardwareMap);
+        mecanumDrive.initIntakeAndConveyor(hardwareMap);
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
@@ -255,13 +253,18 @@ public class AutonomusMode extends LinearOpMode {
 
                     **/
                     //Create a function to move 3 inches and shoot 3 rings
-                    mecanumDrive.moveBasedOnTotalRings(totalRings, telemetry);
+                    mecanumDrive.moveBasedOnTotalRingsForTowerGoal(totalRings, telemetry);
                     //mecanumDrive.moveGrabberArmToRelease();
                     //sleep(3000);
                     mecanumDrive.putWobbleDownUp();
+                    //grabbing second wobble if total rings is 0
+                    mecanumDrive.putSecondWobbleDownUp(totalRings, telemetry);
+                    //mecanumDrive.putSecondWobbleUsingArm(totalRings, telemetry);
                     // Get other wobble and put in square based on homw many rings there are
                     //Make function to move to line, depending on how many rings there are
                     //Move to white line based on total ring , and park
+                    sleep(300);
+                    //
                     mecanumDrive.parkOnLineBasedOnRings(totalRings, telemetry);
                     //sleep(2000);
                     break;
@@ -273,6 +276,7 @@ public class AutonomusMode extends LinearOpMode {
             tfod.shutdown();
         }
     }
+
 
 
 
